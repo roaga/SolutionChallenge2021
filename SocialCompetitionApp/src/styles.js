@@ -87,7 +87,15 @@ const uStyles = StyleSheet.create({
     },
     tabBar: {
         backgroundColor: colors.black,
-        paddingBottom: 12
+        paddingBottom: 12,
+    },
+    topBar: {
+        backgroundColor: colors.black,
+        width: "100%",
+        padding: 12,
+        height: 96,
+        flexDirection: "row",
+        justifyContent: "space-between"
     }
 })
 

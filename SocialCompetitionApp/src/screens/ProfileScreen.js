@@ -19,6 +19,18 @@ export default ProfileScreen = () => {
 
     return (
         <View style={styles.container}>
+            <View style={uStyles.topBar}>
+                <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
+                <View style={{flexDirection: "row"}}>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => logOut()}>
+                            <Feather name="log-out" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                            <Feather name="settings" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
             <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]}>
                 <ImageBackground 
                     style={uStyles.pfp}
@@ -45,10 +57,6 @@ export default ProfileScreen = () => {
                     <Text style={uStyles.body}>Causes</Text>
                 </View>
             </View>
-
-            <TouchableOpacity style={{alignItems: "center", marginTop: 48}} onPress={() => logOut()}>
-                    <Feather name="log-out" size={32} color={colors.primary}/>
-            </TouchableOpacity>
         </View>
 
     );
