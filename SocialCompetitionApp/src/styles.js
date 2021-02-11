@@ -10,6 +10,13 @@ const colors = {
 }
 
 const uStyles = StyleSheet.create({
+    title: {
+        marginTop: 96,
+        fontSize: 32,
+        fontWeight: "700",
+        textAlign: "center",
+        color: colors.white,
+    },
     header: {
         marginTop: 96,
         fontSize: 18,
