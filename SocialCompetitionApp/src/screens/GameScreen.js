@@ -1,6 +1,5 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground} from 'react-native'
-import * as firebase from 'firebase'
 import {StatusBar} from 'expo-status-bar';
 
 import {uStyles, colors} from '../styles.js'

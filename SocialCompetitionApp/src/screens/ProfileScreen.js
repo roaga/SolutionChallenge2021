@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
@@ -28,35 +28,40 @@ export default ProfileScreen = () => {
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
                             <Feather name="settings" size={24} color={colors.white}/>
                     </TouchableOpacity>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                            <Feather name="bell" size={24} color={colors.white}/>
+                    </TouchableOpacity>
                 </View>
             </View>
 
-            <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]}>
-                <ImageBackground 
-                    style={uStyles.pfp}
-                    source={
-                        user.profilePhotoUrl === "default" ?
-                        require("../../assets/defaultProfilePhoto.png")
-                        : {uri: user.profilePhotoUrl}
-                    }
-                />
-            </TouchableOpacity>
-            <Text style={[uStyles.header, {marginTop: 16}]}>{user.username}</Text>
+            <ScrollView>
+                <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]}>
+                    <ImageBackground 
+                        style={uStyles.pfp}
+                        source={
+                            user.profilePhotoUrl === "default" ?
+                            require("../../assets/defaultProfilePhoto.png")
+                            : {uri: user.profilePhotoUrl}
+                        }
+                    />
+                </TouchableOpacity>
+                <Text style={[uStyles.header, {marginTop: 16}]}>{user.username}</Text>
 
-            <View style={{alignItems: "center", marginTop: 16, flexDirection: "row", justifyContent: "space-between"}}>
-                <View style={{flex: 1, alignItems: "center"}}>
-                    <Text style={uStyles.subheader}>21</Text>
-                    <Text style={uStyles.body}>Posts</Text>
+                <View style={{alignItems: "center", marginTop: 16, flexDirection: "row", justifyContent: "space-between"}}>
+                    <View style={{flex: 1, alignItems: "center"}}>
+                        <Text style={uStyles.subheader}>21</Text>
+                        <Text style={uStyles.body}>Posts</Text>
+                    </View>
+                    <View style={{flex: 1, alignItems: "center"}}>
+                        <Text style={uStyles.subheader}>489</Text>
+                        <Text style={uStyles.body}>Points</Text>
+                    </View>
+                    <View style={{flex: 1, alignItems: "center"}}>
+                        <Text style={uStyles.subheader}>7</Text>
+                        <Text style={uStyles.body}>Causes</Text>
+                    </View>
                 </View>
-                <View style={{flex: 1, alignItems: "center"}}>
-                    <Text style={uStyles.subheader}>489</Text>
-                    <Text style={uStyles.body}>Points</Text>
-                </View>
-                <View style={{flex: 1, alignItems: "center"}}>
-                    <Text style={uStyles.subheader}>7</Text>
-                    <Text style={uStyles.body}>Causes</Text>
-                </View>
-            </View>
+            </ScrollView>
         </View>
 
     );

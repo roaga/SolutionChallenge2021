@@ -5,14 +5,14 @@ const colors = {
     primary: "#E9446A",
     white: "#FEFCFD",
     black: "#010400",
-    dark: "#5D5D81",
-    light: "#BFCDE0",
+    dark: "#1d3557",//"#5603AD"
+    light: "#BFCDE0"//"#8B80F9",
 }
 
 const uStyles = StyleSheet.create({
     title: {
         marginTop: 96,
-        fontSize: 32,
+        fontSize: 24,
         fontWeight: "700",
         textAlign: "center",
         color: colors.white,
@@ -88,14 +88,38 @@ const uStyles = StyleSheet.create({
     tabBar: {
         backgroundColor: colors.black,
         paddingBottom: 12,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        position:'absolute',
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -4, height: -1},
+        shadowColor: colors.primary,
     },
     topBar: {
         backgroundColor: colors.black,
         width: "100%",
-        padding: 12,
+        padding: 16,
         height: 96,
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -4, height: 4},
+        shadowColor: colors.primary,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    postCard: {
+        flex: 1,
+        backgroundColor: colors.dark,
+        borderRadius: 10,
+        width: "95%",
+        height: "75%",
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -4, height: 4},
+        shadowColor: colors.black,
     }
 })
 
