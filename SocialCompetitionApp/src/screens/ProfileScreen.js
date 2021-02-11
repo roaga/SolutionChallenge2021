@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground} from 'react-native'
-import * as firebase from 'firebase'
+
 import {uStyles, colors} from '../styles.js'
+import {FirebaseContext} from "../context/FirebaseContext"
 
 export default class ProfileScreen extends React.Component {
 
@@ -13,3 +14,10 @@ export default class ProfileScreen extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.dark,
+    },
+});

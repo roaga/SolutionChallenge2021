@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, ActivityIndicator} from 'react-native'
+import {StatusBar} from 'expo-status-bar';
 import * as firebase from 'firebase'
 
 import {uStyles, colors} from '../styles'
@@ -85,6 +86,7 @@ export default LoginScreen = ({navigation}) => {
                     New around here? <Text style={uStyles.message, {color: colors.primary}}>Sign up.</Text>
                 </Text>
             </TouchableOpacity>
+            <StatusBar style="light" />
         {/* </ImageBackground> */}
         </ScrollView>
     )

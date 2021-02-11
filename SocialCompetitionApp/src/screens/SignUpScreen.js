@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, Platform} from 'react-native'
+import React, {useContext, useState} from 'react'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, Platform, ActivityIndicator} from 'react-native'
 import {Feather} from "@expo/vector-icons";
-import * as firebase from 'firebase'
+import {StatusBar} from 'expo-status-bar';
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 
 import {uStyles, colors} from '../styles.js'
+import {FirebaseContext} from "../context/FirebaseContext"
+import { UserContext } from '../context/UserContext.js';
 
 export default SignUpScreen = ({navigation}) => {
     const [name, setName] = useState("");
@@ -14,22 +16,24 @@ export default SignUpScreen = ({navigation}) => {
     const [errorMessage, setErrorMessage] = useState();
     const [loading, setLoading] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState();
+    const firebase = useContext(FirebaseContext);
+    const[_, setUser] = useContext(UserContext);
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         if(name.length > 0){
-            firebase.auth().createUserWithEmailAndPassword(email, password).then(userCredentials => {
-                userCredentials.user.sendEmailVerification().then(function() {
-                    firebase.auth().signOut()
-                    setErrorMessage("Please check for a verification email.");
-                }.bind(this));
-                firebase.firestore().collection('users').doc(email).set({
-                    posts: [], 
-                });
-                return userCredentials.user.updateProfile({
-                    displayName: name
-                })
-            }).catch(error => setErrorMessage(error.message));
-        } else{
+            setLoading(true);
+            const user = {name, email, password, profilePhoto}
+    
+            try {  
+                const createdUser = await firebase.createUser(user);
+                setUser({...createdUser, isLoggedIn: true})
+                setErrorMessage("Please check for a verification email.");
+            } catch (error) {
+                console.log("Error @handleSignup: ", error.message);
+            } finally {
+                setLoading(false);
+            }
+        } else {
             setErrorMessage("A name is required.")
         }
     }
@@ -140,6 +144,7 @@ export default SignUpScreen = ({navigation}) => {
                 </Text>
             </TouchableOpacity>
         {/* </ImageBackground> */}
+            <StatusBar style="light" />
         </ScrollView>
     )
 }
