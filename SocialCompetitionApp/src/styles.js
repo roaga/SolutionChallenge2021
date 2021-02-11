@@ -68,6 +68,19 @@ const uStyles = StyleSheet.create({
         shadowRadius: 0,
         shadowOffset: {width: -4, height: 4},
         shadowColor: colors.black,
+    },
+    pfp: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: colors.light,
+        justifyContent: "center",
+        alignItems: "center",
+        overflow: 'hidden'
+    },
+    tabBar: {
+        backgroundColor: colors.black,
+        paddingBottom: 12
     }
 })
 

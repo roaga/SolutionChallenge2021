@@ -13,6 +13,7 @@ export default SignUpScreen = ({navigation}) => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState();
     const [loading, setLoading] = useState(false);
+    const [profilePhoto, setProfilePhoto] = useState();
 
     const handleSignup = () => {
         if(name.length > 0){
@@ -42,7 +43,27 @@ export default SignUpScreen = ({navigation}) => {
 
     const addProfilePhoto = async () => {
         const status = await getPermission();
-        alert("Status: ", status);
+        if (status !== "granted") {
+            alert("We need permission to access your photos for this to work.");
+            return;
+        }
+        pickImage();
+    }
+
+    const pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 0.5,
+            })
+            if (!result.cancelled) {
+                setProfilePhoto(result.uri);
+            }
+        } catch (error) {
+            console.log("Error @pickImage: ", error);
+        }
     }
 
     return (
@@ -54,7 +75,11 @@ export default SignUpScreen = ({navigation}) => {
 
             <View style={{alignItems: "center"}}>
                 <TouchableOpacity style={uStyles.pfpBubble} onPress={() => addProfilePhoto()}>
-                    <Feather name="plus" size={48} color={colors.black}/>
+                    {profilePhoto ? (
+                        <ImageBackground style={uStyles.pfp} source={{uri: profilePhoto}}/>
+                    ) : (
+                        <Feather name="plus" size={32} color={colors.black}/>
+                    )}
                 </TouchableOpacity>
             </View>
 
@@ -102,7 +127,11 @@ export default SignUpScreen = ({navigation}) => {
             </View>
 
             <TouchableOpacity style={uStyles.textButton} onPress={() => handleSignup()}>
-                <Text style={uStyles.subheader}>Sign Up</Text>
+                {loading ? (
+                    <ActivityIndicator size="small" color={colors.white}/>
+                ) : (
+                    <Text style={uStyles.subheader}>Sign Up</Text>
+                )}
             </TouchableOpacity>
 
             <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => navigation.navigate("LogIn")}>

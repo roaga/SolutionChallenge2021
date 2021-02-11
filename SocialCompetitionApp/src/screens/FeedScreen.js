@@ -7,9 +7,17 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <Text>
-                Feed screen
-            </Text>
+            <View style={styles.container}>
+                <Text>
+                    Feed screen
+                </Text>
+            </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.dark,
+    },
+});
