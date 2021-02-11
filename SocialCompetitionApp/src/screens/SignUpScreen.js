@@ -74,7 +74,7 @@ export default SignUpScreen = ({navigation}) => {
         // <ImageBackground style={styles.container} source={require('../assets/placeholder.png')} imageStyle={{opacity: 0.2}}>
         <ScrollView style={styles.container}>
             <Text style={uStyles.header}>
-                {'Hello.\nAnd welcome to SCA.'}
+                {'Welcome to SCA.'}
             </Text>
 
             <View style={{alignItems: "center"}}>

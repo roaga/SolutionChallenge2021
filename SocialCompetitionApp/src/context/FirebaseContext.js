@@ -19,17 +19,14 @@ const Firebase = {
     },
     createUser: async (user) => {
         try {
-            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(userCredentials => {
-                userCredentials.user.sendEmailVerification().then(function() {
-                    firebase.auth().signOut();
-                });
-            });
-            const uid = Firebase.getCurrentUser().uid;
+            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+            await Firebase.sendEmailVerification();
 
+            const uid = Firebase.getCurrentUser().uid;
             let profilePhotoUrl = "default";
 
             await db.collection("users").doc(uid).set({
-                username: user.username,
+                username: user.name,
                 email: user.email,
                 profilePhotoUrl
             });
@@ -39,7 +36,6 @@ const Firebase = {
             }
 
             delete user.password;
-
             return {...user, profilePhotoUrl, uid};
         } catch (error) {
             console.log("Error @createUser: ", error.message);
@@ -88,6 +84,30 @@ const Firebase = {
         } catch (error) {
             console.log("Error @getUserInfo: ", error.message);
         }
+    },
+    sendEmailVerification: async () => {
+        const user = Firebase.getCurrentUser();
+        if (user) {
+            user.sendEmailVerification();
+        }
+    },
+    sendPasswordResetEmail: async (email) => {
+        const user = Firebase.getCurrentUser();
+        if (user) {
+            firebase.auth().sendPasswordResetEmail(email);
+        }
+    },
+    logOut: async () => {
+        try {
+            await firebase.auth().signOut();
+            return true;
+        } catch (error) {
+            console.log("Error @logOut: ", error.message);
+        }
+        return false;
+    },
+    logIn: async(email, password) => {
+        return firebase.auth().signInWithEmailAndPassword(email, password);
     }
 };
 

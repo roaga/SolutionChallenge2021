@@ -1,38 +1,71 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, ActivityIndicator} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import * as firebase from 'firebase'
 
 import {uStyles, colors} from '../styles'
+import {FirebaseContext} from "../context/FirebaseContext"
+import {UserContext} from '../context/UserContext'
 
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);   
+    const firebase = useContext(FirebaseContext);
+    const [_, setUser] = useContext(UserContext);
 
-    handleLogin = () => {
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(error => setErrorMessage(error.message));
-        firebase.auth().onAuthStateChanged(user => {
-            if(user && !user.emailVerified){
+    handleLogin = async () => {
+        setLoading(true);
+
+        try {
+            await firebase.logIn(email, password);
+
+            const uid = firebase.getCurrentUser().uid;
+            const userInfo = await firebase.getUserInfo(uid);
+            const emailVerified = firebase.getCurrentUser().emailVerified;
+
+            if (!emailVerified) {
                 setErrorMessage("Your email is not verified. Check your inbox.");
             }
-        });
+
+            setUser({
+                username: userInfo.username,
+                email: userInfo.email,
+                uid,
+                profilePhotoUrl: userInfo.profilePhotoUrl,
+                isLoggedIn: emailVerified,
+            });
+        } catch (error) {
+            setErrorMessage(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     resetPassword = () => {
-        firebase.auth().sendPasswordResetEmail(email).then(function() {
-            // Email sent.
-        }).catch(function(error) {
-            // An error happened.
-        });
+        try {
+            firebase.sendPasswordResetEmail(email);
+            setErrorMessage("Email sent!");
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+    }
+
+    resendVerification = () => {
+        try {
+            firebase.sendEmailVerification();
+            setErrorMessage("Email sent!");
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
     }
 
     return(
         // <ImageBackground style={styles.container} source={require('../assets/placeholder.png')} imageStyle={{opacity: 0.2}}>
         <ScrollView style={styles.container}>
             <Text style={uStyles.header}>
-                {'Hello.\nAnd welcome back.'}
+                {'Welcome back.'}
             </Text>
 
             <View style={styles.errorMessage}>
@@ -74,10 +107,15 @@ export default LoginScreen = ({navigation}) => {
                 )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resetPassword()}
-            >
+            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resetPassword()}>
                 <Text style={uStyles.message}>
                     Reset password.
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resendVerification()}>
+                <Text style={uStyles.message}>
+                    Resend verification email.
                 </Text>
             </TouchableOpacity>
 
