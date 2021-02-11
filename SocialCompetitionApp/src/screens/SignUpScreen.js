@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, Platform} from 'react-native'
-import * as Icon from "react-native-feather";
+import {Feather} from "@expo/vector-icons";
 import * as firebase from 'firebase'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
@@ -54,7 +54,7 @@ export default SignUpScreen = ({navigation}) => {
 
             <View style={{alignItems: "center"}}>
                 <TouchableOpacity style={uStyles.pfpBubble} onPress={() => addProfilePhoto()}>
-                    <Icon.Plus color={colors.black}/>
+                    <Feather name="plus" size={48} color={colors.black}/>
                 </TouchableOpacity>
             </View>
 
