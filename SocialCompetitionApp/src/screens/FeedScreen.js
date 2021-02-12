@@ -12,13 +12,13 @@ export default FeedScreen = () => {
     const [postIndex, setPostIndex] = useState();
 
     const tempData = [
-        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
     
     const renderPost = ({item}) => {
         return (
-            <PostCard />
+            <PostCard imageUrl={item.imageUrl} caption={item.caption} link={item.link}/>
         )
     }
 
