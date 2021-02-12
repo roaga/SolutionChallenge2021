@@ -19,22 +19,7 @@ export default ProfileScreen = () => {
 
     return (
         <View style={styles.container}>
-            <View style={uStyles.topBar}>
-                <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
-                <View style={{flexDirection: "row"}}>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => logOut()}>
-                            <Feather name="log-out" size={24} color={colors.white}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
-                            <Feather name="settings" size={24} color={colors.white}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
-                            <Feather name="bell" size={24} color={colors.white}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-
-            <ScrollView>
+            <ScrollView style={{marginTop: 64}}>
                 <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]}>
                     <ImageBackground 
                         style={uStyles.pfp}
@@ -62,6 +47,21 @@ export default ProfileScreen = () => {
                     </View>
                 </View>
             </ScrollView>
+
+            <View style={uStyles.topBar}>
+                <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
+                <View style={{flexDirection: "row"}}>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => logOut()}>
+                            <Feather name="log-out" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                            <Feather name="settings" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                            <Feather name="bell" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
 
     );

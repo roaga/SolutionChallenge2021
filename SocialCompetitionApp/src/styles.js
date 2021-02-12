@@ -109,17 +109,20 @@ const uStyles = StyleSheet.create({
         shadowColor: colors.primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+        position: "absolute"
     },
     postCard: {
         flex: 1,
-        backgroundColor: colors.dark,
-        borderRadius: 10,
-        width: "95%",
-        height: "75%",
+        backgroundColor: colors.light,
+        borderRadius: 20,
+        marginTop: 16,
+        width: "100%",
+        height: 550,
         shadowOpacity: 1,
         shadowRadius: 0,
-        shadowOffset: {width: -4, height: 4},
+        shadowOffset: {width: -8, height: 8},
         shadowColor: colors.black,
+        alignSelf: "center",
     }
 })
 
