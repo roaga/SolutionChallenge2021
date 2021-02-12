@@ -39,7 +39,7 @@ export default FeedScreen = () => {
                 viewabilityConfig={{itemVisiblePercentThreshold: 50}}
                 snapToInterval={500}
                 style={{flex: 1, height: "100%", paddingTop: 96}}
-                contentContainerStyle={{paddingBottom: 96}}
+                contentContainerStyle={{paddingBottom: 192}}
                 showsVerticalScrollIndicator={false}
                 removeClippedSubviews={true} // Unmount components when outside of window 
                 initialNumToRender={2} // Reduce initial render amount
