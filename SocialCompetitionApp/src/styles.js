@@ -123,6 +123,24 @@ const uStyles = StyleSheet.create({
         shadowOffset: {width: -8, height: 8},
         shadowColor: colors.black,
         alignSelf: "center",
+    }, 
+    tag: {
+        borderRadius: 8,
+        padding: 4,
+        marginHorizontal: 8
+    },
+    modal: {
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        backgroundColor: colors.white,
+        height: "100%",
+        width: "100%",
+        marginTop: 128,
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -8, height: -4},
+        shadowColor: colors.black,
+        alignSelf: "center",
     }
 })
 

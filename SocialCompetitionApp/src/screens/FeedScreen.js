@@ -1,24 +1,26 @@
 import React, {useState, useCallback} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, FlatList} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, FlatList, Modal} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
 import PostCard from '../components/PostCard'
+import CommentsModal from '../components/CommentsModal.js';
 
 export default FeedScreen = () => {
     const [category, setCategory] = useState("foryou");
     const [postIndex, setPostIndex] = useState();
+    const [commentsModalVisible, setCommentsModalVisible] = useState(false);
 
     const tempData = [
-        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
     
     const renderPost = ({item}) => {
         return (
-            <PostCard imageUrl={item.imageUrl} caption={item.caption} link={item.link}/>
+            <PostCard post={item}/>
         )
     }
 
@@ -27,6 +29,22 @@ export default FeedScreen = () => {
             setPostIndex(viewableItems[0].index);
         }
     }, []);
+
+    const likePost = (index) => {
+
+    }
+
+    const toggleComments = (index) => {
+        setCommentsModalVisible(!commentsModalVisible);
+    }
+
+    const visitProfile = (index) => {
+
+    }
+
+    const sharePost = (index) => {
+
+    }
 
     return (
         <View style={styles.container}>
@@ -47,20 +65,23 @@ export default FeedScreen = () => {
             />
 
             <View style={{position: "absolute", right: 8, bottom: 108}}>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]}>
+                <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>+30!</Text>
+
+                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => likePost(postIndex)}>
                     <Feather name="heart" size={24} color={colors.white}/>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].likes : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]}>
+                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => toggleComments(postIndex)}>
                     <Feather name="message-circle" size={24} color={colors.white}/>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].comments.length : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]}>
+                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => visitProfile(postIndex)}>
                     <Feather name="user" size={24} color={colors.white}/>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]}>
+                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => sharePost(postIndex)}>
                     <Feather name="share" size={24} color={colors.white}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]}>
-                    <Feather name="calendar" size={24} color={colors.white}/>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].shares : "-"}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -88,6 +109,15 @@ export default FeedScreen = () => {
                     />
                 </View>
             </View>
+
+            <Modal
+                animationType="slide" 
+                visible={commentsModalVisible} 
+                onRequestClose={() => toggleComments()}
+                transparent={true}
+            >
+                <CommentsModal comments={postIndex !== undefined ? tempData[postIndex].comments : []} close={() => toggleComments()}/>
+            </Modal>
 
             <StatusBar style="light" />
         </View>
