@@ -14,8 +14,8 @@ export default FeedScreen = () => {
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
 
     const tempData = [
-        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
     
     const renderPost = ({item}) => {
@@ -55,7 +55,6 @@ export default FeedScreen = () => {
                 keyExtractor={(item) => item.id.toString()}
                 onViewableItemsChanged={onViewChange}
                 viewabilityConfig={{itemVisiblePercentThreshold: 50}}
-                snapToInterval={500}
                 style={{flex: 1, height: "100%", paddingTop: 96}}
                 contentContainerStyle={{paddingBottom: 192}}
                 showsVerticalScrollIndicator={false}
@@ -67,19 +66,19 @@ export default FeedScreen = () => {
             <View style={{position: "absolute", right: 8, bottom: 108}}>
                 <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>+30!</Text>
 
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => likePost(postIndex)}>
+                <TouchableOpacity style={uStyles.roundButton} onPress={() => likePost(postIndex)}>
                     <Feather name="heart" size={24} color={colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].likes : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => toggleComments(postIndex)}>
+                <TouchableOpacity style={uStyles.roundButton} onPress={() => toggleComments(postIndex)}>
                     <Feather name="message-circle" size={24} color={colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].comments.length : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => visitProfile(postIndex)}>
+                <TouchableOpacity style={uStyles.roundButton} onPress={() => visitProfile(postIndex)}>
                     <Feather name="user" size={24} color={colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits : "-"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[uStyles.pfpBubble, {width: 48, height: 48, backgroundColor: colors.black, shadowColor: colors.primary, marginTop: 12}]} onPress={() => sharePost(postIndex)}>
+                <TouchableOpacity style={uStyles.roundButton} onPress={() => sharePost(postIndex)}>
                     <Feather name="share" size={24} color={colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].shares : "-"}</Text>
                 </TouchableOpacity>

@@ -63,6 +63,19 @@ const uStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",   
     },
+    roundButton: {
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -4, height: 4},
+        width: 48, 
+        height: 48, 
+        backgroundColor: colors.black, 
+        shadowColor: colors.primary, 
+        marginTop: 12
+    },
     pfpBubble: {
         width: 100,
         height: 100,
@@ -141,6 +154,14 @@ const uStyles = StyleSheet.create({
         shadowOffset: {width: -8, height: -4},
         shadowColor: colors.black,
         alignSelf: "center",
+    },
+    commentCard: {
+        backgroundColor: colors.white,
+        marginRight: 12,
+        marginLeft: 12,
+        marginTop: 16,
+        padding: 12,
+        borderRadius: 20
     }
 })
 

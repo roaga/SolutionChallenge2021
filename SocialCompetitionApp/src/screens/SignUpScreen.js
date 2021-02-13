@@ -101,6 +101,7 @@ export default SignUpScreen = ({navigation}) => {
                         autoCorrect={false}
                         onChangeText={name => setName(name.trim())}
                         value={name}
+                        maxLength={100}
                     ></TextInput>
                 </View>
 
