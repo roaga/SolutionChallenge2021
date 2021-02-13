@@ -45,24 +45,24 @@ export default CommentsModal = (props) => {
 
             <KeyboardAvoidingView 
                 behavior= {"padding"} 
-                keyboardVerticalOffset={144}
-                style={{position: "absolute", bottom: 160, marginHorizontal: 8, flexDirection: "row", alignItems: "center"}}
             >
-                <TextInput 
-                        style={[uStyles.input, {width: "85%", marginRight: 8, borderBottomColor: colors.primary, backgroundColor: colors.white, color: colors.black}]} 
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        autoCompleteType="none"
-                        placeholder={"Send a message..."}
-                        placeholderTextColor={colors.dark}
-                        onChangeText={text => setInput(text)}
-                        value={input}
-                        maxLength={2000}
-                />
+                <View style={{position: "relative", bottom: 160, marginHorizontal: 8, flexDirection: "row", alignItems: "center"}}>
+                    <TextInput 
+                            style={[uStyles.input, {width: "85%", marginRight: 8, borderBottomColor: colors.primary, backgroundColor: colors.white, color: colors.black}]} 
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            autoCompleteType="none"
+                            placeholder={"Send a message..."}
+                            placeholderTextColor={colors.dark}
+                            onChangeText={text => setInput(text)}
+                            value={input}
+                            maxLength={2000}
+                    />
 
-                <TouchableOpacity style={uStyles.roundButton} onPress={() => addComment()}>
-                    <Feather name="send" size={24} color={colors.white}/>
-                </TouchableOpacity>
+                    <TouchableOpacity style={uStyles.roundButton} onPress={() => addComment()}>
+                        <Feather name="send" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                </View>
             </KeyboardAvoidingView>
             
         </View>
