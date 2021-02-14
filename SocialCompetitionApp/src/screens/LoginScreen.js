@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, ActivityIndicator} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, ActivityIndicator, KeyboardAvoidingView} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import * as firebase from 'firebase'
 
@@ -62,71 +62,71 @@ export default LoginScreen = ({navigation}) => {
     }
 
     return(
-        // <ImageBackground style={styles.container} source={require('../assets/placeholder.png')} imageStyle={{opacity: 0.2}}>
-        <ScrollView style={styles.container}>
-            <Text style={uStyles.header}>
-                {'Welcome back.'}
-            </Text>
+        <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+            <ScrollView style={styles.container}>
+                <Text style={uStyles.header}>
+                    {'Welcome back.'}
+                </Text>
 
-            <View style={styles.errorMessage}>
-                {errorMessage && <Text style={uStyles.message}>{errorMessage}</Text>}
-            </View>
-            
-            <View style={styles.form}>
-                <View>
-                    <Text style={uStyles.subheader}>Email</Text>
-                    <TextInput 
-                        style={uStyles.input} 
-                        autoCapitalize='none' 
-                        autoCompleteType="email"
-                        autoCorrect={false}
-                        onChangeText={email => setEmail(email.trim())}
-                        value={email}
-                    ></TextInput>
+                <View style={styles.errorMessage}>
+                    {errorMessage && <Text style={uStyles.message}>{errorMessage}</Text>}
+                </View>
+                
+                <View style={styles.form}>
+                    <View>
+                        <Text style={uStyles.subheader}>Email</Text>
+                        <TextInput 
+                            style={uStyles.input} 
+                            autoCapitalize='none' 
+                            autoCompleteType="email"
+                            autoCorrect={false}
+                            onChangeText={email => setEmail(email.trim())}
+                            value={email}
+                        ></TextInput>
+                    </View>
+
+                    <View style={{marginTop: 16}}>
+                        <Text style={uStyles.subheader}>Password</Text>
+                        <TextInput 
+                            style={uStyles.input} 
+                            secureTextEntry 
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            autoCompleteType="password"
+                            onChangeText={password => setPassword(password.trim())}
+                            value={password}
+                        ></TextInput>
+                    </View>
                 </View>
 
-                <View style={{marginTop: 16}}>
-                    <Text style={uStyles.subheader}>Password</Text>
-                    <TextInput 
-                        style={uStyles.input} 
-                        secureTextEntry 
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        autoCompleteType="password"
-                        onChangeText={password => setPassword(password.trim())}
-                        value={password}
-                    ></TextInput>
-                </View>
-            </View>
+                <TouchableOpacity style={uStyles.textButton} onPress={() => handleLogin()}>
+                    {loading ? (
+                        <ActivityIndicator size="small" color={colors.white}/>
+                    ) : (
+                        <Text style={uStyles.subheader}>Log In</Text>
+                    )}
+                </TouchableOpacity>
 
-            <TouchableOpacity style={uStyles.textButton} onPress={() => handleLogin()}>
-                {loading ? (
-                    <ActivityIndicator size="small" color={colors.white}/>
-                ) : (
-                    <Text style={uStyles.subheader}>Log In</Text>
-                )}
-            </TouchableOpacity>
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resetPassword()}>
+                    <Text style={uStyles.message}>
+                        Reset password.
+                    </Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resetPassword()}>
-                <Text style={uStyles.message}>
-                    Reset password.
-                </Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resendVerification()}>
+                    <Text style={uStyles.message}>
+                        Resend verification email.
+                    </Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => resendVerification()}>
-                <Text style={uStyles.message}>
-                    Resend verification email.
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => navigation.navigate("SignUp")}>
-                <Text style={uStyles.message}>
-                    New around here? <Text style={uStyles.message, {color: colors.primary}}>Sign up.</Text>
-                </Text>
-            </TouchableOpacity>
-            <StatusBar style="light" />
-        {/* </ImageBackground> */}
-        </ScrollView>
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => navigation.navigate("SignUp")}>
+                    <Text style={uStyles.message}>
+                        New around here? <Text style={uStyles.message, {color: colors.primary}}>Sign up.</Text>
+                    </Text>
+                </TouchableOpacity>
+                <StatusBar style="light" />
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

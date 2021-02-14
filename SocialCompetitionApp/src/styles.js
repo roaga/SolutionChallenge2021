@@ -76,6 +76,11 @@ const uStyles = StyleSheet.create({
         shadowColor: colors.primary, 
         marginTop: 12
     },
+    roundButtonArray: {
+        position: "absolute", 
+        right: 8, 
+        bottom: 108
+    },
     pfpBubble: {
         width: 100,
         height: 100,
@@ -125,7 +130,6 @@ const uStyles = StyleSheet.create({
         position: "absolute"
     },
     postCard: {
-        flex: 1,
         backgroundColor: colors.light,
         borderRadius: 20,
         marginTop: 16,

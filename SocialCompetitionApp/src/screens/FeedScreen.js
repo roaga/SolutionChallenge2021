@@ -63,7 +63,7 @@ export default FeedScreen = () => {
                 maxToRenderPerBatch={1} // Reduce number in each render batch
             />
 
-            <View style={{position: "absolute", right: 8, bottom: 108}}>
+            <View style={uStyles.roundButtonArray}>
                 <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>+30!</Text>
 
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => likePost(postIndex)}>

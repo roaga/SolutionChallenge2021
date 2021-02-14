@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, Platform, ActivityIndicator} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, Platform, ActivityIndicator, KeyboardAvoidingView} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 import {StatusBar} from 'expo-status-bar';
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 
 import {uStyles, colors} from '../styles.js'
+import {ImageUpload} from "../scripts/ImageUpload"
 import {FirebaseContext} from "../context/FirebaseContext"
 import { UserContext } from '../context/UserContext.js';
 
@@ -38,115 +39,91 @@ export default SignUpScreen = ({navigation}) => {
         }
     }
 
-    const getPermission = async () => {
-        if (Platform.OS !== 'web') {
-            const {status} = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-            return status;
-        }
-    }
-
     const addProfilePhoto = async () => {
-        const status = await getPermission();
-        if (status !== "granted") {
-            alert("We need permission to access your photos for this to work.");
-            return;
-        }
-        pickImage();
-    }
-
-    const pickImage = async () => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 0.5,
-            })
-            if (!result.cancelled) {
-                setProfilePhoto(result.uri);
-            }
-        } catch (error) {
-            console.log("Error @pickImage: ", error);
+        const uri = await ImageUpload.addPhoto();
+        if (uri) {
+            setProfilePhoto(uri);
         }
     }
 
     return (
-        // <ImageBackground style={styles.container} source={require('../assets/placeholder.png')} imageStyle={{opacity: 0.2}}>
-        <ScrollView style={styles.container}>
-            <Text style={uStyles.header}>
-                {'Welcome to SCA.'}
-            </Text>
+        <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+            <ScrollView>
+                <Text style={uStyles.header}>
+                    {'Welcome to SCA.'}
+                </Text>
 
-            <View style={{alignItems: "center"}}>
-                <TouchableOpacity style={uStyles.pfpBubble} onPress={() => addProfilePhoto()}>
-                    {profilePhoto ? (
-                        <ImageBackground style={uStyles.pfp} source={{uri: profilePhoto}}/>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={uStyles.pfpBubble} onPress={() => addProfilePhoto()}>
+                        {profilePhoto ? (
+                            <ImageBackground style={uStyles.pfp} source={{uri: profilePhoto}}/>
+                        ) : (
+                            <Feather name="plus" size={32} color={colors.black}/>
+                        )}
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.errorMessage}>
+                    {errorMessage && <Text style={uStyles.message}>{errorMessage}</Text>}
+                </View>
+                
+                <View style={styles.form}>
+                    <View>
+                        <Text style={uStyles.subheader}>Name</Text>
+                        <TextInput 
+                            style={uStyles.input} 
+                            autoCapitalize='none' 
+                            autoCompleteType="name"
+                            autoCorrect={false}
+                            onChangeText={name => setName(name.trim())}
+                            value={name}
+                            maxLength={100}
+                        ></TextInput>
+                    </View>
+
+                    <View style={{marginTop: 16}}>
+                        <Text style={uStyles.subheader}>Email</Text>
+                        <TextInput 
+                            style={uStyles.input} 
+                            autoCapitalize='none' 
+                            autoCorrect={false}
+                            autoCompleteType="email"
+                            onChangeText={email => setEmail(email.trim())}
+                            value={email}
+                        ></TextInput>
+                    </View>
+
+                    <View style={{marginTop: 16}}>
+                        <Text style={uStyles.subheader}>Password</Text>
+                        <TextInput 
+                            style={uStyles.input} 
+                            secureTextEntry 
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            autoCompleteType="password"
+                            onChangeText={password => setPassword(password.trim())}
+                            value={password}
+                        ></TextInput>
+                    </View>
+                </View>
+
+                <TouchableOpacity style={uStyles.textButton} onPress={() => handleSignup()}>
+                    {loading ? (
+                        <ActivityIndicator size="small" color={colors.white}/>
                     ) : (
-                        <Feather name="plus" size={32} color={colors.black}/>
+                        <Text style={uStyles.subheader}>Sign Up</Text>
                     )}
                 </TouchableOpacity>
-            </View>
 
-            <View style={styles.errorMessage}>
-                {errorMessage && <Text style={uStyles.message}>{errorMessage}</Text>}
-            </View>
-            
-            <View style={styles.form}>
-                <View>
-                    <Text style={uStyles.subheader}>Name</Text>
-                    <TextInput 
-                        style={uStyles.input} 
-                        autoCapitalize='none' 
-                        autoCompleteType="name"
-                        autoCorrect={false}
-                        onChangeText={name => setName(name.trim())}
-                        value={name}
-                        maxLength={100}
-                    ></TextInput>
-                </View>
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => navigation.navigate("LogIn")}>
+                    <Text style={uStyles.message}>
+                        Have an account? <Text style={[uStyles.message, {color: colors.primary}]}>Log In.</Text>
+                    </Text>
+                </TouchableOpacity>
 
-                <View style={{marginTop: 16}}>
-                    <Text style={uStyles.subheader}>Email</Text>
-                    <TextInput 
-                        style={uStyles.input} 
-                        autoCapitalize='none' 
-                        autoCorrect={false}
-                        autoCompleteType="email"
-                        onChangeText={email => setEmail(email.trim())}
-                        value={email}
-                    ></TextInput>
-                </View>
-
-                <View style={{marginTop: 16}}>
-                    <Text style={uStyles.subheader}>Password</Text>
-                    <TextInput 
-                        style={uStyles.input} 
-                        secureTextEntry 
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        autoCompleteType="password"
-                        onChangeText={password => setPassword(password.trim())}
-                        value={password}
-                    ></TextInput>
-                </View>
-            </View>
-
-            <TouchableOpacity style={uStyles.textButton} onPress={() => handleSignup()}>
-                {loading ? (
-                    <ActivityIndicator size="small" color={colors.white}/>
-                ) : (
-                    <Text style={uStyles.subheader}>Sign Up</Text>
-                )}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => navigation.navigate("LogIn")}>
-                <Text style={uStyles.message}>
-                    Have an account? <Text style={[uStyles.message, {color: colors.primary}]}>Log In.</Text>
-                </Text>
-            </TouchableOpacity>
-        {/* </ImageBackground> */}
-            <StatusBar style="light" />
-        </ScrollView>
+                <StatusBar style="light" />
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
