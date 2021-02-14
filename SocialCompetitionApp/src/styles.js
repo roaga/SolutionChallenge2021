@@ -166,6 +166,12 @@ const uStyles = StyleSheet.create({
         marginTop: 16,
         padding: 12,
         borderRadius: 20
+    },
+    camera: {
+        width: "100%",
+        height: 550,
+        marginTop: 12,
+        borderRadius: 20
     }
 })
 

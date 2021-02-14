@@ -14,11 +14,16 @@ const ImageUpload = {
                 return(result.uri)
             }
         } catch (error) {
-            console.log("Error @pickImage: ", error);
+            console.log("Error @pickImage: ", error.message);
         }
     },
-    takeImage: async () => {
-        
+    takeImage: async (camera) => {
+        try {
+            let uri = await camera.takePictureAsync().uri;
+            return uri;
+        } catch (error) {
+            console.log("Error @takeImage: ", error.message);
+        }
     },
     getMediaPermission: async () => {
         if (Platform.OS !== 'web') {
