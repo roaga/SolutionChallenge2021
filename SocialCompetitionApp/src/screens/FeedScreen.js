@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, FlatList, Modal} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -12,11 +12,22 @@ export default FeedScreen = () => {
     const [category, setCategory] = useState("foryou");
     const [postIndex, setPostIndex] = useState();
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
+    const [recentPoints, setRecentPoints] = useState();
+    const [timer, setTimer] = useState(0);
 
     const tempData = [
         {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
         {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+          if (timer > 0) {
+              setTimer(timer - 1);
+          }
+        }, 1000);
+        return () => clearInterval(timer);
+      }, []);
     
     const renderPost = ({item}) => {
         return (
@@ -64,7 +75,7 @@ export default FeedScreen = () => {
             />
 
             <View style={uStyles.roundButtonArray}>
-                <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>+30!</Text>
+                <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>{recentPoints && timer > 0 ? "+" + recentPoints + "!" : ""}</Text>
 
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => likePost(postIndex)}>
                     <Feather name="heart" size={24} color={colors.white}/>
