@@ -96,7 +96,7 @@ export default FeedScreen = () => {
                         defaultValue={category}
                         containerStyle={{height: 32, width: 160, marginTop: 32}}
                         style={{backgroundColor: colors.black, color: colors.white, borderWidth: 0, flexDirection: "row-reverse"}}
-                        dropDownStyle={{backgroundColor: colors.black, borderWidth: 0, height: 512, borderBottomRightRadius: 10, borderBottomLeftRadius: 10, borderTopRightRadius: 10, borderTopLeftRadius: 10}}
+                        dropDownStyle={{backgroundColor: colors.black, borderWidth: 0, height: 512, borderBottomRightRadius: 10, borderBottomLeftRadius: 10}}
                         itemStyle={{justifyContent: "flex-start", textAlign: "right"}}
                         activeItemStyle={{backgroundColor: colors.primary, borderRadius: 10}}
                         globalTextStyle={uStyles.body}

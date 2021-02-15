@@ -51,7 +51,7 @@ export default CommentsModal = (props) => {
                             style={[uStyles.input, {width: "85%", marginRight: 8, borderBottomColor: colors.primary, backgroundColor: colors.white, color: colors.black}]} 
                             autoCapitalize='none'
                             autoCorrect={false}
-                            autoCompleteType="none"
+                            autoCompleteType="off"
                             placeholder={"Send a message..."}
                             placeholderTextColor={colors.dark}
                             onChangeText={text => setInput(text)}
