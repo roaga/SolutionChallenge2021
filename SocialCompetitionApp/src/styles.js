@@ -167,6 +167,19 @@ const uStyles = StyleSheet.create({
         padding: 12,
         borderRadius: 20
     },
+    searchCard: {
+        backgroundColor: colors.light,
+        marginRight: 12,
+        marginLeft: 12,
+        marginTop: 16,
+        padding: 12,
+        height: "40%",
+        borderRadius: 20,
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        shadowOffset: {width: -4, height: 4},
+        shadowColor: colors.black,
+    },
     camera: {
         width: "100%",
         height: 550,
