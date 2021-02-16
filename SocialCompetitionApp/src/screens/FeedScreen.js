@@ -12,8 +12,8 @@ import CommentsModal from '../components/CommentsModal.js';
 
 export default FeedScreen = () => {
     const tempData = [
-        {id: "141415252", username: "Aritro", uid: "8301u410", pfpUrl: "34", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-        {id: "1414152523", username: "Hane", uid: "238823", pfpUrl: "02482", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "141415252", username: "Aritro", uid: "8301u410", pfpUrl: "default", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "1414152523", username: "Hane", uid: "238823", pfpUrl: "default", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
 
     const [category, setCategory] = useState("foryou");

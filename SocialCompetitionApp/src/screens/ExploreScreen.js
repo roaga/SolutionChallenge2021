@@ -41,8 +41,8 @@ export default ExploreScreen = () => {
     }
 
     const tempUserData = [
-        {username: "Aritro", uid: "8301u410", pfpUrl: "houar", causes: ["Environment"], points: 32},
-        {username: "Hane", uid: "238823", pfpUrl: "ref", causes: ["Environment"], points: 33},
+        {username: "Aritro", uid: "8301u410", pfpUrl: "default", causes: ["Environment"], points: 32},
+        {username: "Hane", uid: "238823", pfpUrl: "default", causes: ["Environment"], points: 33},
     ];
 
     const tempCausesData = [

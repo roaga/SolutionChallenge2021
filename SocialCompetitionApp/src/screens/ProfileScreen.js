@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 
@@ -6,10 +6,16 @@ import {uStyles, colors} from '../styles.js'
 import {FirebaseContext} from "../context/FirebaseContext"
 import { UserContext } from '../context/UserContext'
 import PostCard from '../components/PostCard'
+import {ImageUpload} from '../scripts/ImageUpload'
 
 export default ProfileScreen = () => {
     const [user, setUser] = useContext(UserContext);
     const firebase = useContext(FirebaseContext);
+    const [userData, setUserData] = useState();
+
+    useEffect(() => {
+        //get user data and set it
+    }, []);
 
     const tempData = [
         {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
@@ -29,10 +35,17 @@ export default ProfileScreen = () => {
         )
     }
 
+    const addPostPhoto = async () => {
+        const uri = await ImageUpload.addPhoto();
+        if (uri) {
+            let url = await firebase.uploadProfilePhoto(uri);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView style={{marginTop: 64}}>
-                <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]}>
+                <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center"}]} onPress={() => addPostPhoto()}>
                     <ImageBackground 
                         style={uStyles.pfp}
                         source={
@@ -46,15 +59,15 @@ export default ProfileScreen = () => {
 
                 <View style={{alignItems: "center", marginTop: 16, flexDirection: "row", justifyContent: "space-between"}}>
                     <View style={{flex: 1, alignItems: "center"}}>
-                        <Text style={uStyles.subheader}>21</Text>
+                        <Text style={uStyles.subheader}>{userData ? userData.posts.length : "-"}</Text>
                         <Text style={uStyles.body}>Posts</Text>
                     </View>
                     <View style={{flex: 1, alignItems: "center"}}>
-                        <Text style={uStyles.subheader}>489</Text>
+                        <Text style={uStyles.subheader}>{userData ? userData.points : "-"}</Text>
                         <Text style={uStyles.body}>Points</Text>
                     </View>
                     <View style={{flex: 1, alignItems: "center"}}>
-                        <Text style={uStyles.subheader}>7</Text>
+                        <Text style={uStyles.subheader}>{userData ? userData.causes.length : "-"}</Text>
                         <Text style={uStyles.body}>Causes</Text>
                     </View>
                 </View>
