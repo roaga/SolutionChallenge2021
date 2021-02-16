@@ -1,24 +1,27 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect, useRef, createRef} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, FlatList, Modal} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {Feather} from "@expo/vector-icons";
+import ViewShot from "react-native-view-shot";
+import * as Sharing from 'expo-sharing';
 
 import {uStyles, colors} from '../styles.js'
 import PostCard from '../components/PostCard'
 import CommentsModal from '../components/CommentsModal.js';
 
 export default FeedScreen = () => {
+    const tempData = [
+        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
+    ];
+
     const [category, setCategory] = useState("foryou");
     const [postIndex, setPostIndex] = useState();
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
     const [recentPoints, setRecentPoints] = useState();
     const [timer, setTimer] = useState(0);
-
-    const tempData = [
-        {id: "141415252", username: "Aritro", uid: "8301u410", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-        {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
-    ];
+    const postRefs = useRef(tempData.map(() => createRef()));
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -29,9 +32,11 @@ export default FeedScreen = () => {
         return () => clearInterval(timer);
       }, []);
     
-    const renderPost = ({item}) => {
+    const renderPost = ({item, index}) => {
         return (
-            <PostCard post={item}/>
+            <ViewShot ref={postRefs.current[index]}>
+                <PostCard post={item}/>
+            </ViewShot>
         )
     }
 
@@ -53,8 +58,11 @@ export default FeedScreen = () => {
 
     }
 
-    const sharePost = (index) => {
-
+    const sharePost = async (index) => {
+        postRefs.current[index].current.capture().then(uri => {
+            console.log("do something with ", uri);
+            Sharing.shareAsync(uri);
+        });
     }
 
     return (
