@@ -60,7 +60,6 @@ export default FeedScreen = () => {
 
     const sharePost = async (index) => {
         postRefs.current[index].current.capture().then(uri => {
-            console.log("do something with ", uri);
             Sharing.shareAsync(uri);
         });
     }

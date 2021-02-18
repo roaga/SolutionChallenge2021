@@ -36,6 +36,9 @@ export default PostScreen = () => {
             //TODO: add user info
             let toPost = {...post};
             toPost.caption = toPost.caption.trim();
+            if (toPost.caption.length === 0) {
+                toPost.link = "";
+            }
             //TODO: upload
             
         } else {
