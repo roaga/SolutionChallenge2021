@@ -5,7 +5,7 @@ import * as Sharing from 'expo-sharing';
 import {Feather} from "@expo/vector-icons";
 import ViewShot from "react-native-view-shot";
 import DropDownPicker from 'react-native-dropdown-picker';
-import {LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
+import { StackedAreaChart, PieChart, StackedBarChart, ProgressCircle, YAxis, XAxis } from 'react-native-svg-charts'
 
 import {uStyles, colors} from '../styles.js'
 
@@ -26,30 +26,28 @@ export default GameScreen = () => {
 
     return (
         <View style={styles.container}>
-            <ViewShot ref={view}>
-                <ScrollView style={{marginTop: 98, height: "100%"}}>
-                    <View style={uStyles.searchCard}>
+            <ViewShot ref={view} style={{height: "100%"}}>
+                <ScrollView style={{marginTop: 98}} contentContainerStyle={{paddingBottom: 96}}>
+                    <View style={[uStyles.searchCard, {height: 300}]}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Points</Text>
                     </View>
                     
-                    <View style={uStyles.searchCard}>
+                    <View style={[uStyles.searchCard, {height: 800}]}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Milestones</Text>
 
-                        <ProgressChart
-                            data={tempMilestonesData}
-                            width={"60%"}
-                            height={220}
-                            strokeWidth={16}
-                            radius={32}
-                            chartConfig={{
-                                backgroundColor: '#022173',
-                                backgroundGradientFrom: '#022173',
-                                backgroundGradientTo: '#1b3fa0',
-                                color: `rgba(255, 255, 255, 1)`,
-                                style: {borderRadius: 16}
-                            }}
-                            hideLegend={false}
-                        />
+                        <View>
+                            <ProgressCircle style={{ height: 150, marginTop: 12}} progress={0.7} progressColor={colors.primary}/>
+                            <Text style={[uStyles.body,{color: colors.black, position: "absolute", top: "50%", alignSelf: "center"}]}>Milestone 1</Text>
+                        </View>
+                        <View>
+                            <ProgressCircle style={{ height: 150, marginTop: 16}} progress={0.5} progressColor={colors.primary}/>
+                            <Text style={[uStyles.body,{color: colors.black, position: "absolute", top: "50%", alignSelf: "center"}]}>Milestone 2</Text>
+                        </View>
+                        <View>
+                            <ProgressCircle style={{ height: 150, marginTop: 16}} progress={0.6} progressColor={colors.primary}/>
+                            <Text style={[uStyles.body,{color: colors.black, position: "absolute", top: "50%", alignSelf: "center"}]}>Milestone 3</Text>
+                        </View>
+
                     </View>
 
                 </ScrollView>
