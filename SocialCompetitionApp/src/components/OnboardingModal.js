@@ -57,6 +57,7 @@ export default OnboardingModal = (props) => {
             subTitleStyles={{...uStyles.body, fontSize: 18, marginTop: 16}}
             imageContainerStyles={{paddingBottom: 0}}
             onDone={() => props.close()}
+            skipToPage={6}
         />
     );
 }
