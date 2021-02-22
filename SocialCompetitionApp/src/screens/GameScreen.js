@@ -95,12 +95,12 @@ export default GameScreen = () => {
                         <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a comment on a post that engaged 149 people!</Text>
                     </View>
                     
-                    <View style={[uStyles.searchCard, {height: 640}]}>
+                    <View style={[uStyles.searchCard, {height: 748}]}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Milestones</Text>
 
                         <View>
-                            <ProgressCircle style={{ height: 150, marginTop: 12}} progress={0.7} progressColor={colors.primary}/>
-                            <Text style={[uStyles.body,{color: colors.black, position: "absolute", top: "50%", alignSelf: "center"}]}>Milestone 1</Text>
+                            <ProgressCircle style={{ height: 250, marginTop: 12}} progress={0.7} progressColor={colors.primary}/>
+                            <Text style={[uStyles.body,{color: colors.black, position: "absolute", top: "50%", alignSelf: "center"}]}>Milestone of the Month</Text>
                         </View>
                         <View>
                             <ProgressCircle style={{ height: 150, marginTop: 16}} progress={0.5} progressColor={colors.primary}/>

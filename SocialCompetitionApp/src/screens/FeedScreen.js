@@ -9,6 +9,7 @@ import * as Sharing from 'expo-sharing';
 import {uStyles, colors} from '../styles.js'
 import PostCard from '../components/PostCard'
 import CommentsModal from '../components/CommentsModal.js';
+import checkIfFirstLaunch from '../scripts/CheckFirstLaunch';
 
 export default FeedScreen = () => {
     const tempData = [
@@ -19,11 +20,19 @@ export default FeedScreen = () => {
     const [category, setCategory] = useState("foryou");
     const [postIndex, setPostIndex] = useState();
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
+    const [onboardingVisible, setOnboardingVisible] = useState(false);
     const [recentPoints, setRecentPoints] = useState();
     const [timer, setTimer] = useState(0);
     const postRefs = useRef(tempData.map(() => createRef()));
+    
 
     useEffect(() => {
+        const getIsFirstLaunch = async () => {
+            const isFirstLaunch = await checkIfFirstLaunch();
+            setOnboardingVisible(isFirstLaunch);
+        }
+        getIsFirstLaunch();
+
         const timer = setInterval(() => {
           if (timer > 0) {
               setTimer(timer - 1);
@@ -52,6 +61,10 @@ export default FeedScreen = () => {
 
     const toggleComments = (index) => {
         setCommentsModalVisible(!commentsModalVisible);
+    }
+
+    const toggleOnboarding = () => {
+        setOnboardingVisible(!onboardingVisible);
     }
 
     const visitProfile = (index) => {
@@ -89,7 +102,7 @@ export default FeedScreen = () => {
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].likes : "-"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => toggleComments(postIndex)}>
-                    <Feather name="message-circle" size={24} color={colors.white}/>
+                    <Feather name="message-square" size={24} color={colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].comments.length : "-"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => visitProfile(postIndex)}>
@@ -134,6 +147,15 @@ export default FeedScreen = () => {
                 transparent={true}
             >
                 <CommentsModal comments={postIndex !== undefined ? tempData[postIndex].comments : []} close={() => toggleComments()}/>
+            </Modal>
+
+            <Modal
+                animationType="slide" 
+                visible={onboardingVisible} 
+                onRequestClose={() => toggleOnboarding()}
+                transparent={true}
+            >
+                <OnboardingModal close={() => toggleOnboarding()}/>
             </Modal>
 
             <StatusBar style="light" />

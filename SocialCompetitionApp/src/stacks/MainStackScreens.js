@@ -31,7 +31,7 @@ export default MainStackScreens = () => {
                     iconName = "plus-circle";
                     break;
                 case "Game":
-                    iconName = "award";
+                    iconName = "trending-up";
                     break;
                 case "Profile":
                     iconName = "user";

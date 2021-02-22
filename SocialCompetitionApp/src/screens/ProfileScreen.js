@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList, Modal} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
@@ -7,11 +7,13 @@ import {FirebaseContext} from "../context/FirebaseContext"
 import { UserContext } from '../context/UserContext'
 import PostCard from '../components/PostCard'
 import {ImageUpload} from '../scripts/ImageUpload'
+import OnboardingModal from '../components/OnboardingModal.js';
 
 export default ProfileScreen = () => {
     const [user, setUser] = useContext(UserContext);
     const firebase = useContext(FirebaseContext);
     const [userData, setUserData] = useState();
+    const [onboardingVisible, setOnboardingVisible] = useState(false);
 
     useEffect(() => {
         //get user data and set it
@@ -27,6 +29,10 @@ export default ProfileScreen = () => {
         if (loggedOut) {
             setUser(state => ({...state, isLoggedIn: false}))
         }
+    }
+
+    const toggleOnboarding = () => {
+        setOnboardingVisible(!onboardingVisible);
     }
 
     const renderPost = ({item}) => {
@@ -87,17 +93,29 @@ export default ProfileScreen = () => {
                 </View>
             </ScrollView>
 
+            <Modal
+                animationType="slide" 
+                visible={onboardingVisible} 
+                onRequestClose={() => toggleOnboarding()}
+                transparent={true}
+            >
+                <OnboardingModal close={() => toggleOnboarding()}/>
+            </Modal>
+
             <View style={uStyles.topBar}>
                 <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
                 <View style={{flexDirection: "row"}}>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => logOut()}>
-                            <Feather name="log-out" size={24} color={colors.white}/>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => toggleOnboarding()}>
+                        <Feather name="help-circle" size={24} color={colors.white}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => logOut()}>
+                        <Feather name="log-out" size={24} color={colors.white}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
-                            <Feather name="settings" size={24} color={colors.white}/>
+                        <Feather name="settings" size={24} color={colors.white}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
-                            <Feather name="bell" size={24} color={colors.white}/>
+                        <Feather name="bell" size={24} color={colors.white}/>
                     </TouchableOpacity>
                 </View>
             </View>
