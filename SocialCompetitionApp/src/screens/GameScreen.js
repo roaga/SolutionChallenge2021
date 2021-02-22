@@ -5,6 +5,7 @@ import * as Sharing from 'expo-sharing';
 import {Feather} from "@expo/vector-icons";
 import ViewShot from "react-native-view-shot";
 import { StackedBarChart, ProgressCircle, YAxis, XAxis } from 'react-native-svg-charts'
+import * as Reanimatable from 'react-native-animatable';
 
 import {uStyles, colors} from '../styles.js'
 
@@ -81,7 +82,7 @@ export default GameScreen = () => {
         <View style={styles.container}>
             <ViewShot ref={view} style={{height: "100%"}}>
                 <ScrollView style={{marginTop: 98}} contentContainerStyle={{paddingBottom: 96}}>
-                    <View style={[uStyles.searchCard, {height: 324}]}>
+                    <Reanimatable.View style={[uStyles.searchCard, {height: 324}]} animation="slideInUp" duration={500}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Points</Text>
 
                         <View style={{flexDirection: "row", marginBottom: 8}}>
@@ -116,9 +117,9 @@ export default GameScreen = () => {
                             svg={{ fontSize: 10, fill: colors.black }}
                         />                    
                         <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16}]}>You earned {tempPointsData.map(item => (item.Thoughts + item.Volunteering + item.Activism + item.Contribution + item.Awareness)).reduce((a, b) => a + b)} points total!</Text>
-                    </View>
+                    </Reanimatable.View>
 
-                    <View style={[uStyles.searchCard, {height: 340}]}>
+                    <Reanimatable.View style={[uStyles.searchCard, {height: 340}]} animation="slideInUp" duration={500}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Impact Facts</Text>
 
                         <Feather name="plus-circle" color={colors.primary} size={32} style={{alignSelf: "center"}}/>
@@ -127,7 +128,7 @@ export default GameScreen = () => {
                         <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You shared a post representing 120 people on Fitness!</Text>
                         <Feather name="message-circle" color={colors.primary} size={32} style={{alignSelf: "center", marginTop: 8}}/>
                         <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a comment on a post that engaged 149 people!</Text>
-                    </View>
+                    </Reanimatable.View>
                     
                     <View style={[uStyles.searchCard, {height: 748}]}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Milestones</Text>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import {Feather} from "@expo/vector-icons";
+import * as Reanimatable from 'react-native-animatable';
 
 import {uStyles, colors} from '../styles.js'
 
@@ -63,7 +64,7 @@ export default ExploreScreen = () => {
             />
 
             <View>
-                <View style={uStyles.searchCard}>
+                <Reanimatable.View style={uStyles.searchCard} animation="slideInUp" duration={500}>
                     <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Causes</Text>
 
                     <FlatList
@@ -77,9 +78,9 @@ export default ExploreScreen = () => {
                         initialNumToRender={2} // Reduce initial render amount
                         maxToRenderPerBatch={1} // Reduce number in each render batch
                     />
-                </View>
+                </Reanimatable.View>
 
-                <View style={uStyles.searchCard}>
+                <Reanimatable.View style={uStyles.searchCard} animation="slideInUp" duration={500}>
                     <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Top Contributors</Text>
 
                     <FlatList
@@ -93,7 +94,7 @@ export default ExploreScreen = () => {
                         initialNumToRender={2} // Reduce initial render amount
                         maxToRenderPerBatch={1} // Reduce number in each render batch
                     />
-                </View>
+                </Reanimatable.View>
             </View>
 
             <View style={uStyles.topBar}>
