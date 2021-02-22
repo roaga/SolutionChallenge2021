@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import * as Sharing from 'expo-sharing';
@@ -10,6 +10,7 @@ import {uStyles, colors} from '../styles.js'
 
 export default GameScreen = () => {
     const view = useRef();
+    const milestones = useState([{}, {}, {}]);
 
     const tempMilestonesData = {
         labels: ["Swim", "Bike", "Run"], // optional
@@ -36,6 +37,39 @@ export default GameScreen = () => {
     ]
 
     const types = ['Thoughts', 'Volunteering', 'Activism', 'Contribution', 'Awareness'];
+
+    useEffect(() => {
+        // get milestone of month
+
+        // get local milestones
+
+        // generate new milestones if needed
+    }, []);
+
+    const getMilestones = async () => {
+
+    }
+
+    const genIndividualMilestones = () => {
+        let maxIndex = 0;
+        let maxSum = 0;
+        let minIndex = 0;
+        let minSum = 0;
+        tempPointsData.forEach((item, index) => {
+            let sum = item.Thoughts + item.Volunteering + item.Activism + item.Contribution + item.Awareness;
+            if (sum > maxSum) {
+                maxIndex = index;
+                maxSum = sum;
+            } else if (sum < minSum) {
+                minIndex = index;
+                minSum = sum;
+            }
+        });
+        return ([
+            {cause: tempPointsData[maxIndex].cause, goal: Math.ceil(maxSum / 100) * 120},
+            {cause: tempPointsData[minIndex].cause, goal: Math.ceil(minSum / 100) * 120}
+        ]);
+    }
 
     const sharePost = async () => {
         view.current.capture().then(uri => {
