@@ -6,8 +6,8 @@ import {uStyles, colors} from '../styles.js'
 
 export default NotificationsModal = (props) => {
     const tempData = [
-        {id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe", type: "comments"},
-        {id: "238e4u2309", username: "Daniel", uid: "324", text: "urhliesu", type: "points"},
+        {id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe", type: "comments", read: true},
+        {id: "238e4u2309", username: "Daniel", uid: "324", text: "urhliesu", type: "points", read: false},
     ];
 
     const renderNotification = ({item}) => {
@@ -18,7 +18,10 @@ export default NotificationsModal = (props) => {
 
     return (
         <View style={uStyles.modal}>
-            <TouchableOpacity onPress={props.close} style={{alignSelf: 'flex-end', marginRight: 12, marginTop: 12}}>
+            <TouchableOpacity onPress={() => {
+                props.close();
+                // set all as read
+            }} style={{alignSelf: 'flex-end', marginRight: 12, marginTop: 12}}>
                 <Feather name="x" size={32} color={colors.black}/>
             </TouchableOpacity>
 
@@ -62,7 +65,7 @@ const NotificationCard = (props) => {
 
     return (
         <View style={[uStyles.commentCard, {flexDirection: "row"}]}>
-            <Feather name={chooseIcon(props.item.type)} color={colors.primary} size={24}/>
+            <Feather name={chooseIcon(props.item.type)} color={props.item.read ? colors.black : colors.primary} size={24}/>
             <Text style={[uStyles.body, {color: colors.black, marginLeft: 12}]}>{props.item.text}</Text>
         </View>
     );

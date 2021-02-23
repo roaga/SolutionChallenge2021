@@ -9,6 +9,7 @@ import PostCard from '../components/PostCard'
 import {ImageUpload} from '../scripts/ImageUpload'
 import OnboardingModal from '../components/OnboardingModal.js';
 import NotificationsModal from '../components/NotificationsModal'
+import SettingsModal from '../components/SettingsModal.js';
 
 export default ProfileScreen = () => {
     const [user, setUser] = useContext(UserContext);
@@ -17,6 +18,7 @@ export default ProfileScreen = () => {
     const [onboardingVisible, setOnboardingVisible] = useState(false);
     const [settingsVisible, setSettingsVisiible] = useState(false);
     const [notificationsVisible, setNotificationsVisible] = useState(false);
+    const [unreadNotifications, setUnreadNotifications] = useState(false);
 
     useEffect(() => {
         //get user data and set it
@@ -40,6 +42,10 @@ export default ProfileScreen = () => {
 
     const toggleNotifications = () => {
         setNotificationsVisible(!notificationsVisible);
+    }
+
+    const toggleSettings = () => {
+        setSettingsVisiible(!settingsVisible);
     }
 
     const renderPost = ({item}) => {
@@ -118,6 +124,15 @@ export default ProfileScreen = () => {
                 <NotificationsModal close={() => toggleNotifications()}/>
             </Modal>
 
+            <Modal
+                animationType="slide" 
+                visible={settingsVisible} 
+                onRequestClose={() => toggleSettings()}
+                transparent={true}
+            >
+                <SettingsModal close={() => toggleSettings()}/>
+            </Modal>
+
             <View style={uStyles.topBar}>
                 <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
                 <View style={{flexDirection: "row"}}>
@@ -127,11 +142,11 @@ export default ProfileScreen = () => {
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => logOut()}>
                         <Feather name="log-out" size={24} color={colors.white}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => toggleSettings()}>
                         <Feather name="settings" size={24} color={colors.white}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => toggleNotifications()}>
-                        <Feather name="bell" size={24} color={colors.white}/>
+                        <Feather name="bell" size={24} color={unreadNotifications ? colors.primary : colors.white}/>
                     </TouchableOpacity>
                 </View>
             </View>
