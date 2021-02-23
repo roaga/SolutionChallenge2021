@@ -63,8 +63,8 @@ export default ExploreScreen = () => {
                 maxLength={2000}
             />
 
-            <View>
-                <Reanimatable.View style={uStyles.searchCard} animation="slideInUp" duration={500}>
+            <Reanimatable.View animation="slideInUp" duration={500}>
+                <View style={uStyles.searchCard}>
                     <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Causes</Text>
 
                     <FlatList
@@ -78,9 +78,9 @@ export default ExploreScreen = () => {
                         initialNumToRender={2} // Reduce initial render amount
                         maxToRenderPerBatch={1} // Reduce number in each render batch
                     />
-                </Reanimatable.View>
+                </View>
 
-                <Reanimatable.View style={uStyles.searchCard} animation="slideInUp" duration={500}>
+                <View style={uStyles.searchCard}>
                     <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Top Contributors</Text>
 
                     <FlatList
@@ -94,8 +94,8 @@ export default ExploreScreen = () => {
                         initialNumToRender={2} // Reduce initial render amount
                         maxToRenderPerBatch={1} // Reduce number in each render batch
                     />
-                </Reanimatable.View>
-            </View>
+                </View>
+            </Reanimatable.View>
 
             <View style={uStyles.topBar}>
                 <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Explore</Text>

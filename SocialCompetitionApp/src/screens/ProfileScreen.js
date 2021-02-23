@@ -8,12 +8,15 @@ import { UserContext } from '../context/UserContext'
 import PostCard from '../components/PostCard'
 import {ImageUpload} from '../scripts/ImageUpload'
 import OnboardingModal from '../components/OnboardingModal.js';
+import NotificationsModal from '../components/NotificationsModal'
 
 export default ProfileScreen = () => {
     const [user, setUser] = useContext(UserContext);
     const firebase = useContext(FirebaseContext);
     const [userData, setUserData] = useState();
     const [onboardingVisible, setOnboardingVisible] = useState(false);
+    const [settingsVisible, setSettingsVisiible] = useState(false);
+    const [notificationsVisible, setNotificationsVisible] = useState(false);
 
     useEffect(() => {
         //get user data and set it
@@ -33,6 +36,10 @@ export default ProfileScreen = () => {
 
     const toggleOnboarding = () => {
         setOnboardingVisible(!onboardingVisible);
+    }
+
+    const toggleNotifications = () => {
+        setNotificationsVisible(!notificationsVisible);
     }
 
     const renderPost = ({item}) => {
@@ -102,6 +109,15 @@ export default ProfileScreen = () => {
                 <OnboardingModal close={() => toggleOnboarding()}/>
             </Modal>
 
+            <Modal
+                animationType="slide" 
+                visible={notificationsVisible} 
+                onRequestClose={() => toggleNotifications()}
+                transparent={true}
+            >
+                <NotificationsModal close={() => toggleNotifications()}/>
+            </Modal>
+
             <View style={uStyles.topBar}>
                 <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Profile</Text>
                 <View style={{flexDirection: "row"}}>
@@ -114,7 +130,7 @@ export default ProfileScreen = () => {
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
                         <Feather name="settings" size={24} color={colors.white}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}}>
+                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => toggleNotifications()}>
                         <Feather name="bell" size={24} color={colors.white}/>
                     </TouchableOpacity>
                 </View>

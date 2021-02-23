@@ -8,10 +8,12 @@ import {uStyles, colors} from '../styles.js'
 
 export default PostCard = (props) => {
     return (
-        <Reanimatable.View style={uStyles.postCard} animation="slideInUp" duration={500}>
-            <ImageBackground style={{width: "100%", height: "100%", borderRadius: 20}} source={{uri: props.post.imageUrl}} imageStyle={{borderRadius: 20}}>
-                <Caption text={props.post.caption} link={props.post.link} type={props.post.type} cause={props.post.cause}/>
-            </ImageBackground>
+        <Reanimatable.View animation="slideInUp" duration={500}>
+            <View style={uStyles.postCard}>
+                <ImageBackground style={{width: "100%", height: "100%", borderRadius: 20}} source={{uri: props.post.imageUrl}} imageStyle={{borderRadius: 20}}>
+                    <Caption text={props.post.caption} link={props.post.link} type={props.post.type} cause={props.post.cause}/>
+                </ImageBackground>
+            </View>
         </Reanimatable.View>
     );
 }

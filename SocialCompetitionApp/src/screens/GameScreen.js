@@ -82,52 +82,56 @@ export default GameScreen = () => {
         <View style={styles.container}>
             <ViewShot ref={view} style={{height: "100%"}}>
                 <ScrollView style={{marginTop: 98}} contentContainerStyle={{paddingBottom: 96}}>
-                    <Reanimatable.View style={[uStyles.searchCard, {height: 324}]} animation="slideInUp" duration={500}>
-                        <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Points</Text>
+                    <Reanimatable.View animation="slideInUp" duration={500}>
+                        <View style={[uStyles.searchCard, {height: 324}]}>
+                            <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Points</Text>
 
-                        <View style={{flexDirection: "row", marginBottom: 8}}>
-                            <FlatList
-                                data={tempPointsData}
-                                scrollEnabled={false}
-                                renderItem={({item}) => {
-                                    return (
-                                        <Text style={[uStyles.message, {color: colors.dark, fontSize: 8}]}>{item.cause}</Text>
-                                    );
-                                }}
-                                keyExtractor={(item) => item.cause}
-                                style={{flex: 1, height: 200}}
-                                contentContainerStyle={{flex: 1, justifyContent: "space-evenly"}}
-                                showsVerticalScrollIndicator={false}
-                            />    
-                            <StackedBarChart
-                                style={{height: 200, width: "90%"}}
-                                keys={types} 
-                                colors={[colors.dark, colors.primary, colors.white, colors.black]}
-                                data={tempPointsData}
-                                showGrid={false}
-                                contentInset={{ top: 8, bottom: 8 }}
-                                horizontal={true}
-                            />
+                            <View style={{flexDirection: "row", marginBottom: 8}}>
+                                <FlatList
+                                    data={tempPointsData}
+                                    scrollEnabled={false}
+                                    renderItem={({item}) => {
+                                        return (
+                                            <Text style={[uStyles.message, {color: colors.dark, fontSize: 8}]}>{item.cause}</Text>
+                                        );
+                                    }}
+                                    keyExtractor={(item) => item.cause}
+                                    style={{flex: 1, height: 200}}
+                                    contentContainerStyle={{flex: 1, justifyContent: "space-evenly"}}
+                                    showsVerticalScrollIndicator={false}
+                                />    
+                                <StackedBarChart
+                                    style={{height: 200, width: "90%"}}
+                                    keys={types} 
+                                    colors={[colors.dark, colors.primary, colors.white, colors.black]}
+                                    data={tempPointsData}
+                                    showGrid={false}
+                                    contentInset={{ top: 8, bottom: 8 }}
+                                    horizontal={true}
+                                />
+                            </View>
+                            <XAxis
+                                style={{ marginHorizontal: 10, width: "90%" }}
+                                data={[0, 1, 2, 3, 4]}
+                                formatLabel={(a, index) => (index * (tempPointsData[0].Thoughts + tempPointsData[0].Volunteering + tempPointsData[0].Activism + tempPointsData[0].Contribution + tempPointsData[0].Awareness) / [0, 1, 2, 3, 4].length)}
+                                contentInset={{ left: 32, right: 16 }}
+                                svg={{ fontSize: 10, fill: colors.black }}
+                            />                    
+                            <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16}]}>You earned {tempPointsData.map(item => (item.Thoughts + item.Volunteering + item.Activism + item.Contribution + item.Awareness)).reduce((a, b) => a + b)} points total!</Text>
                         </View>
-                        <XAxis
-                            style={{ marginHorizontal: 10, width: "90%" }}
-                            data={[0, 1, 2, 3, 4]}
-                            formatLabel={(a, index) => (index * (tempPointsData[0].Thoughts + tempPointsData[0].Volunteering + tempPointsData[0].Activism + tempPointsData[0].Contribution + tempPointsData[0].Awareness) / [0, 1, 2, 3, 4].length)}
-                            contentInset={{ left: 32, right: 16 }}
-                            svg={{ fontSize: 10, fill: colors.black }}
-                        />                    
-                        <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16}]}>You earned {tempPointsData.map(item => (item.Thoughts + item.Volunteering + item.Activism + item.Contribution + item.Awareness)).reduce((a, b) => a + b)} points total!</Text>
                     </Reanimatable.View>
 
-                    <Reanimatable.View style={[uStyles.searchCard, {height: 340}]} animation="slideInUp" duration={500}>
-                        <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Impact Facts</Text>
+                    <Reanimatable.View animation="slideInUp" duration={500}>
+                        <View style={[uStyles.searchCard, {height: 340}]} animation="slideInUp" duration={500}>
+                            <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Impact Facts</Text>
 
-                        <Feather name="plus-circle" color={colors.primary} size={32} style={{alignSelf: "center"}}/>
-                        <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a post that engaged 1321 people on Environment!</Text>
-                        <Feather name="share" color={colors.primary} size={32} style={{alignSelf: "center", marginTop: 8}}/>
-                        <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You shared a post representing 120 people on Fitness!</Text>
-                        <Feather name="message-circle" color={colors.primary} size={32} style={{alignSelf: "center", marginTop: 8}}/>
-                        <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a comment on a post that engaged 149 people!</Text>
+                            <Feather name="plus-circle" color={colors.primary} size={32} style={{alignSelf: "center"}}/>
+                            <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a post that engaged 1321 people on Environment!</Text>
+                            <Feather name="share" color={colors.primary} size={32} style={{alignSelf: "center", marginTop: 8}}/>
+                            <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You shared a post representing 120 people on Fitness!</Text>
+                            <Feather name="message-circle" color={colors.primary} size={32} style={{alignSelf: "center", marginTop: 8}}/>
+                            <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16, marginHorizontal: 12, textAlign: "center"}]}>You made a comment on a post that engaged 149 people!</Text>
+                        </View>
                     </Reanimatable.View>
                     
                     <View style={[uStyles.searchCard, {height: 748}]}>
