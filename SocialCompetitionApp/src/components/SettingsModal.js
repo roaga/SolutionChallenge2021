@@ -3,11 +3,15 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatLis
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
-import { SettingsContext } from '../context/SettingsContext.js';
+import { SettingsContext } from '../context/SettingsContext.js'
+import {FirebaseContext} from "../context/FirebaseContext";
+import { UserContext } from '../context/UserContext'
 import {setLocalSettings, getLocalSettings} from '../scripts/LocalSettings'
 
 export default SettingsModal = (props) => {
     const [settings, setSettings] = useContext(SettingsContext);
+    const firebase = useContext(FirebaseContext);
+    const [user, setUser] = useContext(UserContext);
 
     const renderSetting = (key) => {
         return (
@@ -21,6 +25,13 @@ export default SettingsModal = (props) => {
         setSettings(oldSettings);
     }
 
+    const logOut = async () => {
+        const loggedOut = await firebase.logOut();
+        if (loggedOut) {
+            setUser(state => ({...state, isLoggedIn: false}))
+        }
+    }
+
     return (
         <View style={uStyles.modal}>
             <TouchableOpacity onPress={() => {
@@ -30,17 +41,25 @@ export default SettingsModal = (props) => {
                 <Feather name="x" size={32} color={colors.black}/>
             </TouchableOpacity>
 
-            <FlatList
-                data={Object.keys(settings)}
-                renderItem={(key) => renderSetting(key.item)}
-                keyExtractor={(item) => item.name}
-                style={{flex: 1, height: "100%", paddingTop: 12}}
-                contentContainerStyle={{paddingBottom: 96, paddingTop: 12}}
-                showsVerticalScrollIndicator={false}
-                removeClippedSubviews={true} // Unmount components when outside of window 
-                initialNumToRender={2} // Reduce initial render amount
-                maxToRenderPerBatch={1} // Reduce number in each render batch
-            />
+
+            <ScrollView>
+                <FlatList
+                    data={Object.keys(settings)}
+                    renderItem={(key) => renderSetting(key.item)}
+                    keyExtractor={(item) => item.name}
+                    style={{flex: 1, paddingTop: 12}}
+                    contentContainerStyle={{paddingBottom: 32, paddingTop: 12}}
+                    scrollEnabled={false}
+                    showsVerticalScrollIndicator={false}
+                    removeClippedSubviews={true} // Unmount components when outside of window 
+                    initialNumToRender={2} // Reduce initial render amount
+                    maxToRenderPerBatch={1} // Reduce number in each render batch
+                />
+
+                <TouchableOpacity style={{alignSelf: "center"}} onPress={() => logOut()}>
+                    <Feather name="log-out" size={24} color={colors.black}/>
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     );
 }

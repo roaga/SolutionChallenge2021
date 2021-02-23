@@ -29,13 +29,6 @@ export default ProfileScreen = () => {
         {id: "1414152523", username: "Hane", uid: "238823", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
 
-    const logOut = async () => {
-        const loggedOut = await firebase.logOut();
-        if (loggedOut) {
-            setUser(state => ({...state, isLoggedIn: false}))
-        }
-    }
-
     const toggleOnboarding = () => {
         setOnboardingVisible(!onboardingVisible);
     }
@@ -138,9 +131,6 @@ export default ProfileScreen = () => {
                 <View style={{flexDirection: "row"}}>
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32}} onPress={() => toggleOnboarding()}>
                         <Feather name="help-circle" size={24} color={colors.white}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => logOut()}>
-                        <Feather name="log-out" size={24} color={colors.white}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignItems: "right", marginTop: 32, marginLeft: 16}} onPress={() => toggleSettings()}>
                         <Feather name="settings" size={24} color={colors.white}/>
