@@ -69,7 +69,7 @@ export default SignUpScreen = ({navigation}) => {
                 
                 <View style={styles.form}>
                     <View>
-                        <Text style={uStyles.subheader}>Name</Text>
+                        <Text style={uStyles.subheader}>Username</Text>
                         <TextInput 
                             style={uStyles.input} 
                             autoCapitalize='none' 
