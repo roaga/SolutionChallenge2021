@@ -10,6 +10,7 @@ import {uStyles, colors} from '../styles.js'
 import PostCard from '../components/PostCard'
 import CommentsModal from '../components/CommentsModal.js';
 import checkIfFirstLaunch from '../scripts/CheckFirstLaunch';
+import ProfileModal from '../components/ProfileModal.js';
 
 export default FeedScreen = () => {
     const tempData = [
@@ -17,9 +18,10 @@ export default FeedScreen = () => {
         {id: "1414152523", username: "Hane", uid: "238823", pfpUrl: "default", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
 
-    const [category, setCategory] = useState("foryou");
+    const [category, setCategory] = useState("foryou"); 
     const [postIndex, setPostIndex] = useState();
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
+    const [profileModalVisible, setProfileModalVisible] = useState(false);
     const [onboardingVisible, setOnboardingVisible] = useState(false);
     const [recentPoints, setRecentPoints] = useState();
     const [timer, setTimer] = useState(0);
@@ -63,12 +65,13 @@ export default FeedScreen = () => {
         setCommentsModalVisible(!commentsModalVisible);
     }
 
+
     const toggleOnboarding = () => {
         setOnboardingVisible(!onboardingVisible);
     }
 
     const visitProfile = (index) => {
-
+        setProfileModalVisible(!profileModalVisible);
     }
 
     const sharePost = async (index) => {
@@ -107,7 +110,7 @@ export default FeedScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => visitProfile(postIndex)}>
                     <Feather name="user" size={24} color={colors.white}/>
-                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits : "-"}</Text>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits.length : "-"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => sharePost(postIndex)}>
                     <Feather name="share" size={24} color={colors.white}/>
@@ -147,6 +150,15 @@ export default FeedScreen = () => {
                 transparent={true}
             >
                 <CommentsModal comments={postIndex !== undefined ? tempData[postIndex].comments : []} close={() => toggleComments()}/>
+            </Modal>
+
+            <Modal
+                animationType="slide" 
+                visible={profileModalVisible} 
+                onRequestClose={() => visitProfile()}
+                transparent={true}
+            >
+                <ProfileModal profileVisits={postIndex !== undefined ? tempData[postIndex].profileVisits : []} close={() => visitProfile()}/>
             </Modal>
 
             <Modal
