@@ -14,7 +14,7 @@ So that's what we tackled:
 
 **We quantify and visualize every action:** users can track their own impact through a gamification system with points, auto-generated milestones to encourage each individual, and highlighting the impact of recent actions in plain English. The most impactful users are featured to the community. We let people share both their own progress and others' posts in a highly visual format, so our community's reach is not isolated.
 
-Our social app helps users focus on smaller goals and activity within the larger issues they care about.** We make it clear that every step counts.** This is a platform that creates impactful grassroots communities that don't fizzle out for no good reason.
+Our social app helps users focus on smaller goals and activity within the larger issues they care about. **We make it clear that every step counts.** This is a platform that creates impactful grassroots communities that don't fizzle out for no good reason.
 
 ## Development
 We built the frontend in React Native with JavaScript since we all knew JavaScript. This allowed us to focus our efforts on creating the experience users want, including a robust backend system built in Google Firebase, with authentication, Firestore, Cloud Functions, and Cloud Messaging. We also used the Google Cloud API to auto-tag posts and make posting more seamless.
