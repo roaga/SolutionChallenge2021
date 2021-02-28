@@ -4,7 +4,7 @@ Make sure you have React Native 0.63 and Expo 4.1.6 installed. You will also hav
 1. Clone this repository
 2. Navigate to the directory `cd SocialCompetitionApp`
 3. Run `yarn ios`
-4. 
+
 ## What It Does
 This app keeps grassroots activism fresh and social, addressing UN SDG 10. The UN and many others have made the importance of grassroots movements clear. Social media has the power to organize these movements around the world's biggest problems, yet they rise and fall within weeks; nothing truly ends up changing. Even motivated users simply forget about what's important to them. Why? For one, other content drowns it out. Secondly, if something stays the same for too long on the internet, it is forgotten; the biggest problems in the world can't be solved instantly, and small steps forward don't get attention in the mess of current social media.
 
