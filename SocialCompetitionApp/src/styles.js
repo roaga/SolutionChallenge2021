@@ -2,11 +2,11 @@ import {StyleSheet} from 'react-native'
 
 // for theming that needs to be consistently reused across the app
 const colors = {
-    primary: "#E9446A",
+    primary: "#87BB00",//"#E9446A",
     white: "#FEFCFD",
-    black: "#010400",
-    dark: "#1d3557",//"#5603AD"
-    light: "#BFCDE0"//"#8B80F9",
+    black: "#272727",//#010400",
+    dark: "#384051",//"#1d3557",//"#5603AD"
+    light: "#D4E0F1"//"#BFCDE0"//"#8B80F9",
 }
 
 const uStyles = StyleSheet.create({
@@ -33,6 +33,11 @@ const uStyles = StyleSheet.create({
         color: colors.white,
         fontSize: 14,
         fontWeight: "600",
+    },
+    toggleProfile: {
+        color: colors.black,
+        fontSize: 16,
+        fontWeight: "700",
     },
     message: {
         color: colors.light,
@@ -161,6 +166,14 @@ const uStyles = StyleSheet.create({
     },
     commentCard: {
         backgroundColor: colors.white,
+        marginRight: 12,
+        marginLeft: 12,
+        marginTop: 16,
+        padding: 12,
+        borderRadius: 20
+    },
+    profileCard: {
+        backgroundColor: colors.dark,
         marginRight: 12,
         marginLeft: 12,
         marginTop: 16,
