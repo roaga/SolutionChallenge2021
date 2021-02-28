@@ -56,7 +56,11 @@ export default SettingsModal = (props) => {
                     maxToRenderPerBatch={1} // Reduce number in each render batch
                 />
 
-                <TouchableOpacity style={{alignSelf: "center"}} onPress={() => logOut()}>
+                <Text style={[uStyles.subheader, {color: colors.black, marginLeft: 36}]}>Account Info</Text>
+                <Text style={[uStyles.body, {color: colors.black, marginLeft: 36, marginTop: 16}]}>{user.username}</Text>
+                <Text style={[uStyles.body, {color: colors.black, marginLeft: 36}]}>{user.email}</Text>
+
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => logOut()}>
                     <Feather name="log-out" size={24} color={colors.black}/>
                 </TouchableOpacity>
             </ScrollView>
