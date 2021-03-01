@@ -25,7 +25,7 @@ export default CommentsModal = (props) => {
 
     const addComment = () => {
         if (input.length > 0) {
-            //TODO: on backend
+            //TODO: post comment, add points
         }
     }
 

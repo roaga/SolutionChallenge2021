@@ -77,11 +77,11 @@ export default FeedScreen = () => {
         postRefs.current[index].current.capture().then(uri => {
             Sharing.shareAsync(uri);
         });
-        //TODO: 
+        //TODO: add points, setRecentPoints
     }
 
     const toggleLikePost = (index) => {
-        // TODO: handle logic (setLike) and backend for liking/unliking
+        // TODO: handle logic (setLike) and backend for liking/unliking, addPoints, setRecentPoints
     }
 
     return (
