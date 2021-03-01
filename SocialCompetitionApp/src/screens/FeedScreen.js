@@ -70,7 +70,7 @@ export default FeedScreen = () => {
         setOnboardingVisible(!onboardingVisible);
     }
 
-    const visitProfile = (index) => {
+    const visitProfile = () => {
         setProfileModalVisible(!profileModalVisible);
     }
 
@@ -110,7 +110,7 @@ export default FeedScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => visitProfile(postIndex)}>
                     <Feather name="user" size={24} color={colors.white}/>
-                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits.length : "-"}</Text>
+                    <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits : "-"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => sharePost(postIndex)}>
                     <Feather name="share" size={24} color={colors.white}/>
@@ -158,7 +158,11 @@ export default FeedScreen = () => {
                 onRequestClose={() => visitProfile()}
                 transparent={true}
             >
-                <ProfileModal profileVisits={postIndex !== undefined ? tempData[postIndex].profileVisits : []} close={() => visitProfile()}/>
+                <ProfileModal 
+                    user={postIndex !== undefined ? tempData[postIndex].uid : ""}
+                    username={postIndex !== undefined ? tempData[postIndex].username : ""}
+                    close={() => visitProfile()}
+                />
             </Modal>
 
             <Modal

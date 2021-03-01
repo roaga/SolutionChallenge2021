@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList} from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, FlatList, Modal} from 'react-native'
 import {StatusBar} from 'expo-status-bar';
 import {Feather} from "@expo/vector-icons";
 import * as Reanimatable from 'react-native-animatable';
 
 import {uStyles, colors} from '../styles.js'
+import ProfileModal from '../components/ProfileModal.js';
 
 export default ExploreScreen = () => {
     const [searchText, setSearchText] = useState("");
+    const [profileModalVisible, setProfileModalVisible] = useState(false);
+    const [userIndex, setUserIndex] = useState(0);
+
+    useEffect(() => {
+        // get data, TODO: replace all tempData with state variable
+    }, []);
 
     const renderCauseItem = ({item}) => {
         return (
@@ -15,9 +22,14 @@ export default ExploreScreen = () => {
         );
     }
 
-    const renderUserItem = ({item}) => {
+    const renderUserItem = ({item, index}) => {
         return (
-            <SearchCard user={item} isCause={false} cause={null} toggleFollowing={() => toggleFollowingUser()} getFollowing={() => isFollowingUser()} visitProfile={visitProfile}/>
+            <SearchCard user={item} isCause={false} cause={null} toggleFollowing={() => toggleFollowingUser()} getFollowing={() => isFollowingUser()}
+                visitProfile={() => {
+                    setUserIndex(index);
+                    visitProfile();
+                }}
+            />
         );
     }
 
@@ -37,8 +49,8 @@ export default ExploreScreen = () => {
         //TODO
     }
 
-    const visitProfile = (index) => {
-
+    const visitProfile = () => {
+        setProfileModalVisible(!profileModalVisible);
     }
 
     const tempUserData = [
@@ -96,6 +108,19 @@ export default ExploreScreen = () => {
                     />
                 </View>
             </Reanimatable.View>
+
+            <Modal
+                animationType="slide" 
+                visible={profileModalVisible} 
+                onRequestClose={() => visitProfile()}
+                transparent={true}
+            >
+                <ProfileModal 
+                    user={userIndex !== undefined ? tempUserData[userIndex].uid : ""}
+                    username={userIndex !== undefined ? tempUserData[userIndex].username : ""}
+                    close={() => visitProfile()}
+                />
+            </Modal>
 
             <View style={uStyles.topBar}>
                 <Text style={[uStyles.title, {color: colors.primary, textAlign: 'left', marginTop: 32}]}>Explore</Text>

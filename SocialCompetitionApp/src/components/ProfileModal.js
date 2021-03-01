@@ -16,7 +16,7 @@ export default ProfileModal = (props) => {
 
 
     useEffect(() => {
-        // later
+        // get data with uid and setUserData
     }, []);
 
     const tempData = [
@@ -40,12 +40,11 @@ export default ProfileModal = (props) => {
                 <Feather name="x" size={32} color={colors.black}/>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center", marginTop: 1}]} ></TouchableOpacity>
+            <ScrollView style={{marginTop: 30, paddingBottom: 30, overflow: "hidden",}}>
 
-            <TouchableOpacity style={{alignSelf: 'center', marginTop: 30}} onPress={() => visitProfile(postIndex)}>
-                    <Text style={[uStyles.toggleProfile, {fontSize: 15}]}>{postIndex !== undefined ? tempData[postIndex].profileVisits.length : "@userName"}</Text>
-                    
-                </TouchableOpacity>
+                <TouchableOpacity style={[uStyles.pfpBubble, {alignSelf: "center", marginTop: 1}]} ></TouchableOpacity>
+
+                <Text style={[uStyles.header, {marginTop: 16, color: colors.black}]}>{props.username}</Text>
             
                 <View style={{alignItems: "center", marginTop: 30, flexDirection: "row", justifyContent: "space-between"}}>
                     <View style={{flex: 1, alignItems: "center"}}>
@@ -61,7 +60,6 @@ export default ProfileModal = (props) => {
                         <Text style={uStyles.toggleProfile}>Causes</Text>
                     </View>
                 </View>
-                <ScrollView style={{marginTop: 30, paddingBottom: 30, overflow: "hidden",}}>
                 <View>
                     <FlatList
                         data={tempData}

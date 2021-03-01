@@ -13,10 +13,6 @@ export default PostScreen = () => {
     const [post, setPost] = useState({id: "", username: "", uid: "", imageUrl: "", link: "", caption: "", type: "", cause: "", likes: 0, profileVisits: 0, shares: 0, comments: []});
     const [camVisible, setCamVisible] = useState(false);
 
-    useEffect(() => {
-
-    }, []);
-
     const sendPost = async () => {
         if (post.imageUrl.length > 0 && post.cause.length > 0) {
             Alert.alert(
