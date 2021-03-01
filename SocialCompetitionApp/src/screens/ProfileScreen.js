@@ -21,7 +21,7 @@ export default ProfileScreen = () => {
     const [unreadNotifications, setUnreadNotifications] = useState(false);
 
     useEffect(() => {
-        //get user data and set it with setUserData
+        //get user data, posts, and set it with state
     }, []);
 
     const tempData = [
