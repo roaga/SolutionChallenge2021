@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, Switch} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, Switch, Alert} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
@@ -32,6 +32,27 @@ export default SettingsModal = (props) => {
         }
     }
 
+    const deleteAccount = async () => {
+        Alert.alert(
+            "Delete Account",
+                "Are you sure you want to permanently delete your account?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel",
+                    onPress: () => {return;}
+                  },
+                  {
+                    text: "Yes",
+                    onPress: () => {
+                        firebase.getCurrentUser().delete();
+                        //TODO: delete posts and other things
+                    }
+                  }
+                ]
+            );
+    }
+
     return (
         <View style={uStyles.modal}>
             <TouchableOpacity onPress={() => {
@@ -62,6 +83,9 @@ export default SettingsModal = (props) => {
 
                 <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => logOut()}>
                     <Feather name="log-out" size={24} color={colors.black}/>
+                </TouchableOpacity>
+                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}} onPress={() => deleteAccount()}>
+                    <Feather name="user-x" size={24} color={colors.black}/>
                 </TouchableOpacity>
             </ScrollView>
         </View>

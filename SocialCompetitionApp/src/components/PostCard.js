@@ -7,10 +7,35 @@ import * as Reanimatable from 'react-native-animatable';
 import {uStyles, colors} from '../styles.js'
 
 export default PostCard = (props) => {
+    const deletePost = async () => {
+        Alert.alert(
+            "Delete Post",
+                "Are you sure you want to permanently delete this post?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel",
+                    onPress: () => {return;}
+                  },
+                  {
+                    text: "Yes",
+                    onPress: () => {
+                        try {
+
+                        } catch (error) {
+                            console.log("Error @deletePost: ", error.message);
+                        }
+                    }
+                  }
+                ]
+            );
+    }
+
     return (
         <Reanimatable.View animation="slideInUp" duration={500}>
             <View style={uStyles.postCard}>
                 <ImageBackground style={{width: "100%", height: "100%", borderRadius: 20}} source={{uri: props.post.imageUrl}} imageStyle={{borderRadius: 20}}>
+                    {props.isOwn ? <Feather name="trash-2" size={24} color={"#ff0000"} style={{position: "absolute", right: 16, top: 16}} onPress={() => deletePost()}/> : null}
                     <Caption text={props.post.caption} link={props.post.link} type={props.post.type} cause={props.post.cause}/>
                 </ImageBackground>
             </View>

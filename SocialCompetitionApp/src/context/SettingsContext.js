@@ -6,7 +6,7 @@ const SettingsContext = createContext([{}, () => {}]);
 
 const SettingsProvider = (props) => {
     const [state, setState] = useState({
-        testSetting: {name: "Test Setting", value: false}
+        notifications: {name: "Notifications", value: true}
     });
 
     useEffect(() => {

@@ -43,7 +43,7 @@ export default ProfileScreen = () => {
 
     const renderPost = ({item}) => {
         return (
-            <PostCard post={item}/>
+            <PostCard post={item} isOwn/>
         )
     }
 
