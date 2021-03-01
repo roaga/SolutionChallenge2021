@@ -17,7 +17,7 @@ export default FeedScreen = () => {
         {id: "141415252", username: "Aritro", uid: "8301u410", pfpUrl: "default", imageUrl: "houar", link: "https://expo.io", caption: "uaohfauwf", type: "Volunteering", cause: "Environment", likes: 32, profileVisits: 10, shares: 2, comments: [{id: "23804u2309", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
         {id: "1414152523", username: "Hane", uid: "238823", pfpUrl: "default", imageUrl: "ref", link: "", caption: "fefe", type: "Volunteering", cause: "Environment", likes: 33, profileVisits: 3, shares: 12, comments: [{id: "2049230942", username: "Rohan", uid: "owrhf", text: "oierjhe"},]},
     ];
-
+    const [liked, setLiked] = useState([]);
     const [category, setCategory] = useState("foryou"); 
     const [postIndex, setPostIndex] = useState();
     const [commentsModalVisible, setCommentsModalVisible] = useState(false);
@@ -29,6 +29,8 @@ export default FeedScreen = () => {
     
 
     useEffect(() => {
+        //TODO: get posts from backend, setLiked
+
         const getIsFirstLaunch = async () => {
             const isFirstLaunch = await checkIfFirstLaunch();
             setOnboardingVisible(isFirstLaunch);
@@ -57,10 +59,6 @@ export default FeedScreen = () => {
         }
     }, []);
 
-    const likePost = (index) => {
-
-    }
-
     const toggleComments = (index) => {
         setCommentsModalVisible(!commentsModalVisible);
     }
@@ -72,12 +70,18 @@ export default FeedScreen = () => {
 
     const visitProfile = () => {
         setProfileModalVisible(!profileModalVisible);
+        // TODO: add count to profileVisits for that post
     }
 
     const sharePost = async (index) => {
         postRefs.current[index].current.capture().then(uri => {
             Sharing.shareAsync(uri);
         });
+        //TODO: 
+    }
+
+    const toggleLikePost = (index) => {
+        // TODO: handle logic (setLike) and backend for liking/unliking
     }
 
     return (
@@ -101,7 +105,7 @@ export default FeedScreen = () => {
                 <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>{recentPoints && timer > 0 ? "+" + recentPoints + "!" : ""}</Text>
 
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => likePost(postIndex)}>
-                    <Feather name="heart" size={24} color={colors.white}/>
+                    <Feather name="heart" size={24} color={postIndex !== undefined && liked[postIndex] === true ? colors.primary : colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].likes : "-"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={uStyles.roundButton} onPress={() => toggleComments(postIndex)}>

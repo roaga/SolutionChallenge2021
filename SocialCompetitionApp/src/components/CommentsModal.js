@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, SafeAreaView, KeyboardAvoidingView} from 'react-native'
+import React, { useState, useEffect } from 'react';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, SafeAreaView, KeyboardAvoidingView, Modal} from 'react-native'
 import {Feather} from "@expo/vector-icons";
 
 import {uStyles, colors} from '../styles.js'
+import ProfileModal from './ProfileModal.js';
 
 export default CommentsModal = (props) => {
     const [input, setInput] = useState("");
@@ -12,6 +13,10 @@ export default CommentsModal = (props) => {
         {id: "238e4u2309", username: "Daniel", uid: "324", text: "urhliesu"},
     ];
 
+    useEffect(() => {
+        //TODO: get comments from backend
+      }, []);
+
     const renderComment = ({item}) => {
         return (
             <CommentCard comment={item}/>
@@ -20,7 +25,7 @@ export default CommentsModal = (props) => {
 
     const addComment = () => {
         if (input.length > 0) {
-
+            //TODO: on backend
         }
     }
 
@@ -70,10 +75,30 @@ export default CommentsModal = (props) => {
 }
 
 const CommentCard = (props) => {
+    const [profileModalVisible, setProfileModalVisible] = useState(false);
+    const visitProfile = () => {
+        setProfileModalVisible(!profileModalVisible);
+    }
+
     return (
         <View style={uStyles.commentCard}>
-            <Text style={[uStyles.subheader, {color: colors.black, marginBottom: 8}]}>{props.comment.username}</Text>
+            <TouchableOpacity onPress={visitProfile}>
+                <Text style={[uStyles.subheader, {color: colors.black, marginBottom: 8}]}>{props.comment.username}</Text>
+            </TouchableOpacity>
             <Text style={[uStyles.body, {color: colors.black}]}>{props.comment.text}</Text>
+
+            <Modal
+                animationType="slide" 
+                visible={profileModalVisible} 
+                onRequestClose={() => visitProfile()}
+                transparent={true}
+            >
+                <ProfileModal 
+                    user={props.comment.uid}
+                    username={props.comment.username}
+                    close={() => visitProfile()}
+                />
+            </Modal>
         </View>
     );
 }
