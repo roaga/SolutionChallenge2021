@@ -78,12 +78,21 @@ export default GameScreen = () => {
         });
     }
 
+    const renderCauseItem = ({item}) => {
+        return (
+            <View style={[uStyles.commentCard, {flexDirection: "row", alignItems: "center", width: "100%", backgroundColor: colors.light, alignSelf: "center", marginTop: 4, height: 48}]}>
+                <Feather name="award" size={24}/>
+                <Text style={[uStyles.body, {color: colors.black}]}>{item.cause}</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
             <ViewShot ref={view} style={{height: "100%"}}>
                 <ScrollView style={{marginTop: 98}} contentContainerStyle={{paddingBottom: 96}}>
                     <Reanimatable.View animation="slideInUp" duration={500}>
-                        <View style={[uStyles.searchCard, {height: 324}]}>
+                        <View style={[uStyles.searchCard, {height: 400}]}>
                             <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Points</Text>
 
                             <View style={{flexDirection: "row", marginBottom: 8}}>
@@ -118,6 +127,19 @@ export default GameScreen = () => {
                                 svg={{ fontSize: 10, fill: colors.black }}
                             />                    
                             <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16}]}>You earned {tempPointsData.map(item => (item.Thoughts + item.Volunteering + item.Activism + item.Contribution + item.Awareness)).reduce((a, b) => a + b)} points total!</Text>
+                            
+                            <FlatList
+                                data={tempPointsData}
+                                renderItem={renderCauseItem}
+                                keyExtractor={(item) => item}
+                                style={{flex: 1, height: "100%", paddingTop: 32}}
+                                contentContainerStyle={{paddingBottom: 12}}
+                                horizontal={true}
+                                showsVerticalScrollIndicator={false}
+                                removeClippedSubviews={true} // Unmount components when outside of window 
+                                initialNumToRender={2} // Reduce initial render amount
+                                maxToRenderPerBatch={1} // Reduce number in each render batch
+                            />
                         </View>
                     </Reanimatable.View>
 
@@ -134,7 +156,7 @@ export default GameScreen = () => {
                         </View>
                     </Reanimatable.View>
                     
-                    <View style={[uStyles.searchCard, {height: 748}]}>
+                    <View style={[uStyles.searchCard, {height: 754}]}>
                         <Text style={[uStyles.header, {marginTop: 4, color: colors.black, paddingBottom: 8}]}>Milestones</Text>
 
                         <View>
@@ -152,9 +174,7 @@ export default GameScreen = () => {
                         
                         <Text style={[uStyles.body,{color: colors.black, alignSelf: "center", marginTop: 32}]}>Last completed milestone 4!</Text>
                         <Text style={[uStyles.body, {alignSelf: "center", color: colors.black, marginTop: 16}]}>32 milestones already reached!</Text>
-
                     </View>
-
                 </ScrollView>
             </ViewShot>
 
