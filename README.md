@@ -1,6 +1,6 @@
 # Solution Challenge 2021
 ## How to Run
-Make sure you have React Native 0.63 and Expo 4.1.6 installed. You will also have to set up your own Firebase config in the firebase.js file in `SocialCompetitionApp/src/config` and by setting up a Firebase web project.
+Make sure you have React Native 0.63 and Expo 4.1.6 installed. You will also have to set up your own Firebase config in the firebase.js file in `SocialCompetitionApp/src/config` and by setting up a Firebase web project. You may also have to install additional dependencies through yarn. Also make sure you have XCode with an iOS simulator installed (this project works on Android Studio/Android emulators as well, but was designed for iOS).
 1. Clone this repository
 2. Navigate to the directory `cd SocialCompetitionApp`
 3. Run `yarn ios`
