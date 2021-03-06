@@ -24,7 +24,7 @@ export default FeedScreen = () => {
     const [profileModalVisible, setProfileModalVisible] = useState(false);
     const [onboardingVisible, setOnboardingVisible] = useState(false);
     const [recentPoints, setRecentPoints] = useState();
-    const [timer, setTimer] = useState(0);
+    const [time, setTime] = useState(0);
     const postRefs = useRef(tempData.map(() => createRef()));
     
 
@@ -38,12 +38,16 @@ export default FeedScreen = () => {
         getIsFirstLaunch();
 
         const timer = setInterval(() => {
-          if (timer > 0) {
-              setTimer(timer - 1);
-          }
+            setTime(time => time + 1);
         }, 1000);
         return () => clearInterval(timer);
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        if (time > 3) {
+            setRecentPoints(undefined);
+        }
+    }, [time])
     
     const renderPost = ({item, index}) => {
         return (
@@ -51,6 +55,12 @@ export default FeedScreen = () => {
                 <PostCard post={item}/>
             </ViewShot>
         )
+    }
+
+    const setPoints = (num) => {
+        setRecentPoints(recentPoints ? num + recentPoints : num);
+        setTime(0)
+        //TODO: add points on backend side, update contexts, etc.
     }
 
     const onViewChange = useCallback(({ viewableItems, changed }) => {
@@ -61,6 +71,9 @@ export default FeedScreen = () => {
 
     const toggleComments = (index) => {
         setCommentsModalVisible(!commentsModalVisible);
+        if (!commentsModalVisible) {
+            setPoints(2);
+        }
     }
 
 
@@ -71,17 +84,22 @@ export default FeedScreen = () => {
     const visitProfile = () => {
         setProfileModalVisible(!profileModalVisible);
         // TODO: add count to profileVisits for that post
+        if (!profileModalVisible) {
+            setPoints(2);
+        }
     }
 
     const sharePost = async (index) => {
         postRefs.current[index].current.capture().then(uri => {
             Sharing.shareAsync(uri);
         });
-        //TODO: add points, setRecentPoints
+        setPoints(5);
     }
 
     const toggleLikePost = (index) => {
-        // TODO: handle logic (setLike) and backend for liking/unliking, addPoints, setRecentPoints
+        // TODO: handle logic (setLike) and backend for liking/unliking, add points, setRecentPoints
+        //TODO: add an if statement here to only set recent points if liking, not unliking
+        setPoints(1);
     }
 
     return (
@@ -102,9 +120,9 @@ export default FeedScreen = () => {
             />
 
             <View style={uStyles.roundButtonArray}>
-                <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>{recentPoints && timer > 0 ? "+" + recentPoints + "!" : ""}</Text>
+                <Text style={[uStyles.body, {color: colors.primary, textAlign: 'center'}]}>{recentPoints ? "+" + recentPoints + "!" : ""}</Text>
 
-                <TouchableOpacity style={uStyles.roundButton} onPress={() => likePost(postIndex)}>
+                <TouchableOpacity style={uStyles.roundButton} onPress={() => toggleLikePost(postIndex)}>
                     <Feather name="heart" size={24} color={postIndex !== undefined && liked[postIndex] === true ? colors.primary : colors.white}/>
                     <Text style={[uStyles.message, {fontSize: 8}]}>{postIndex !== undefined ? tempData[postIndex].likes : "-"}</Text>
                 </TouchableOpacity>
