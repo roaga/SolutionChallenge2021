@@ -22,6 +22,7 @@ export default ProfileScreen = () => {
 
     useEffect(() => {
         //get user data, posts, and set it with state
+        
     }, []);
 
     const tempData = [

@@ -2,6 +2,7 @@ import React, {createContext} from 'react'
 import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/functions'
 
 import config from '../config/firebase'
 
@@ -12,8 +13,18 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
+const functions = firebase.functions();
+// TODO: define functions
+// e.g. var addMessage = firebase.functions().httpsCallable('addMessage');
+
 
 const Firebase = {
+    // TODO: define functions to call Cloud Functions
+    // addMessage({ text: messageText })
+    //   .then((result) => {
+    //     // Read result of the Cloud Function.
+    //     var sanitizedMessage = result.data.text;
+    //   });
     getCurrentUser: () => {
         return firebase.auth().currentUser;
     },
