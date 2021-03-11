@@ -19,12 +19,133 @@ const functions = firebase.functions();
 
 
 const Firebase = {
-    // TODO: define functions to call Cloud Functions
+    // cloud functions
+    // TODO: call Cloud Functions, add correct parameters in this outline, call functions here in code elsewhere
+    // This is what I found from the docs on calling cloud functions from Web SDK:
     // addMessage({ text: messageText })
     //   .then((result) => {
     //     // Read result of the Cloud Function.
     //     var sanitizedMessage = result.data.text;
     //   });
+    getChallenge: () => {
+
+    },
+    postChallenge: () => {
+
+    },
+    removeChallenge: () => {
+
+    }, 
+    postComment: () => {
+
+    },
+    getComment: () => {
+
+    },
+    scanComments: () => {
+
+    },
+    updateComment: () => {
+
+    },
+    deleteComment: () => {
+
+    },
+    scanUserpostComments: () => {
+
+    },
+    postMilestone: () => {
+
+    },
+    getMilestone: () => {
+
+    },
+    editMilestone: () => {
+
+    },
+    updateMilestoneProgress: () => {
+
+    },
+    deleteMilestone: () => {
+
+    },
+    // postReply: () => {
+        
+    // },
+    // getReply: () => {
+
+    // },
+    // scanReplies: () => {
+
+    // },
+    // updateReply: () => {
+
+    // },
+    // deleteReply: () => {
+
+    // },
+    // scanCommentReplies: () => {
+
+    // },
+    postUserpost: () => {
+
+    },
+    getUserpost: () => {
+
+    },
+    scanUserposts: () => {
+
+    },
+    updateUserpost: () => {
+
+    },
+    deleteUserpost: () => {
+
+    },
+    scaneUserUserposts: () => {
+
+    },
+    postUser: () => { // TODO: use this in the createUser function below, make sure code elsewhere references same collection (userInfo vs users)
+
+    },
+    getUser: () => { // TODO: use this in the getUserInfo function below, make sure code elsewhere references same collection (userInfo vs users)
+
+    },
+    scanUsers: () => {
+
+    },
+    updateUser: () => {
+
+    },
+    deleteUser: () => {
+
+    },
+    addUserpost: () => {
+
+    },
+    addFriend: () => {
+
+    },
+    removeFriend: () => {
+
+    },
+    addTag: () => {
+
+    },
+    removeTag: () => {
+
+    },
+    incrementPoints: () => {
+
+    },
+    addChallenge: () => {
+
+    },
+    addMilestone: () => {
+
+    },
+
+    // auth functions
     getCurrentUser: () => {
         return firebase.auth().currentUser;
     },
