@@ -81,7 +81,7 @@ export default GameScreen = () => {
     const renderCauseItem = ({item}) => {
         return (
             <View style={[uStyles.commentCard, {flexDirection: "row", alignItems: "center", width: "100%", backgroundColor: colors.light, alignSelf: "center", marginTop: 4, height: 48}]}>
-                <Feather name="award" size={24}/>
+                <Image source={require('../../assets/img/Gold.png')} />
                 <Text style={[uStyles.body, {color: colors.black}]}>{item.cause}</Text>
             </View>
         );
