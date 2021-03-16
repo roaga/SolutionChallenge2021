@@ -7,6 +7,8 @@ import * as Reanimatable from 'react-native-animatable';
 import {uStyles, colors} from '../styles.js'
 import ProfileModal from '../components/ProfileModal.js';
 
+import {Firebase} from '../context/FirebaseContext.js';
+
 export default ExploreScreen = () => {
     const [searchText, setSearchText] = useState("");
     const [profileModalVisible, setProfileModalVisible] = useState(false);
@@ -34,19 +36,59 @@ export default ExploreScreen = () => {
     }
 
     const toggleFollowingCause = (cause) => {
-        //TODO
+        let currUser = await Firebase.getUserInfo(Firebase.getCurrentUser().uid);
+        if (isFollowingCause) {
+            await fetch(
+                "https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-remove-tag/"
+                + Firebase.getCurrentUser().uid + "/"
+                + cause, {
+                method: "PUT"
+            });
+        } else {
+            await fetch(
+                "https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-add-tag/"
+                + Firebase.getCurrentUser().uid + "/"
+                + cause, {
+                method: "PUT"
+            });
+        }
     }
 
     const toggleFollowingUser = (user) => {
-        //TODO
+        let currUser = await Firebase.getUserInfo(Firebase.getCurrentUser().uid);
+        if (isFollowingUser) {
+            await fetch(
+                "https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-remove-friend/"
+                + Firebase.getCurrentUser().uid + "/"
+                + user.uid, {
+                method: "PUT"
+            });
+        } else {
+            await fetch(
+                "https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-add-friend/"
+                + Firebase.getCurrentUser().uid + "/"
+                + user.uid, {
+                method: "PUT"
+            });
+        }
     }
 
     const isFollowingCause = (cause) => {
-        //TODO
+        let currUser = await Firebase.getUserInfo(Firebase.getCurrentUser().uid);
+        if (currUser.tags.includes(cause)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     const isFollowingUser = (user) => {
-        //TODO
+        let currUser = await Firebase.getUserInfo(Firebase.getCurrentUser().uid);
+        if (currUser.friends.includes(user)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     const visitProfile = () => {

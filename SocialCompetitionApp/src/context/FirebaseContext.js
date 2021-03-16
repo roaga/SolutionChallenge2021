@@ -157,10 +157,27 @@ const Firebase = {
             const uid = Firebase.getCurrentUser().uid;
             let profilePhotoUrl = "default";
 
+            let docRef = await fetch("https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-post/", {
+                method: "POST",
+                body: JSON.stringify({
+                    userInfoId: uid,
+                    points: 0,
+                    tags: [],
+                    friends: [],
+                    userposts: [],
+                    challenges: [],
+                    milestones: []
+                }),
+                headers: { 
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+
             await db.collection("users").doc(uid).set({
                 username: user.name,
                 email: user.email,
-                profilePhotoUrl
+                profilePhotoUrl,
+                userInfo: docRef.id
             });
 
             if (user.profilePhoto) {
@@ -211,7 +228,9 @@ const Firebase = {
         try {
             const user = await db.collection("users").doc(uid).get();
             if (user.exists) {
-                return user.data();
+                let currUserInfoId = JSON.parse(firebaseUser).userInfo;
+                let currUserInfoRaw = await fetch('https://us-central1-socialcompetitionapp.cloudfunctions.net/app/api/user-get/' + currUserInfoId);
+                return JSON.parse(currUserInfoRaw);
             }
         } catch (error) {
             console.log("Error @getUserInfo: ", error.message);
@@ -247,4 +266,4 @@ const FirebaseProvider = (props) => {
     return <FirebaseContext.Provider value={Firebase}>{props.children}</FirebaseContext.Provider>
 }
 
-export {FirebaseContext, FirebaseProvider};
+export {FirebaseContext, FirebaseProvider, Firebase};
